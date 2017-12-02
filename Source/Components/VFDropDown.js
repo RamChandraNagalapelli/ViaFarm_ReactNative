@@ -17,6 +17,10 @@ export default class VFDropDown extends Component {
         this.setState({ title, defaultText, tag, options })
     }
 
+    componentWillReceiveProps() {
+        this.forceUpdate()
+    }
+
     renderRow(item) {
         return (
             <Text style={{ width: screenSize.width * 0.8 - 10, padding: 10 }}>{item}</Text>
@@ -25,14 +29,12 @@ export default class VFDropDown extends Component {
 
     onSelect = (index) => {
         const {onSelect} = this.props
-        const indexInt = Number.parseInt(index, 10)
-        // onSelect({index, text: this.options[index], tag: this.props.tag})
-        console.log('index', index, Number.parseInt(index, 10), this.state.options[indexInt])
+        onSelect({text: this.state.options[index], tag: this.state.tag})
     }
 
     render() {
         return (
-            <View>
+            <View style = {{marginTop: 20}}>
                 <Text style={styles.title}>{this.state.title}</Text>
                 <View style={styles.deopDownView}>
                     <ModalDropdown
@@ -68,7 +70,8 @@ const styles = StyleSheet.create({
         height: '100%',
     },
     dropDownText: {
-        fontSize: 18,
+        fontSize: 17,
+        fontFamily: 'System',
     },
     arrow: {
         height: '100%',
