@@ -26,9 +26,9 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} title="" initial={!this.state.logged} />
-                    <Scene key="OTPScreen" component={OTPScreen} title="OTP" initial={this.state.logged} />
-                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" />
+                    <Scene key="login" component={LoginScreen} />
+                    <Scene key="OTPScreen" component={OTPScreen} title="OTP" />
+                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" initial = {true}/>
                 </Stack>
             </Router>
         )

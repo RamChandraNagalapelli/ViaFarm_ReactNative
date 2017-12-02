@@ -4,7 +4,8 @@ import { TextField } from 'react-native-material-textfield';
 import { Actions } from 'react-native-router-flux'
 import { LoginStyles } from '../../Styles/LoginStyles'
 import RegTextField from '../../Components/RegTextField'
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native'
+import VFDropDown from '../../Components/VFDropDown'
 
 export default class RegistrationScreen extends Component {
 
@@ -32,11 +33,11 @@ export default class RegistrationScreen extends Component {
         }
     }
 
-    renderRow = (item) => {
-        return (
-            <Text style={{ width: screenSize.width * 0.8, padding: 10 }}>{item}</Text>
-        )
+    onSelectDropdown = (props) => {
+        console.log('props', props)
     }
+
+    cities = ['ahmedabad', 'vizag', 'Hyderabad', 'Vijayada', 'Srikhakulam', 'Surath']
 
     render() {
         const { name } = this.state
@@ -54,7 +55,7 @@ export default class RegistrationScreen extends Component {
                         <RegTextField placeholder='Country' text={country} tag={2} onTextChanges={this.onTextChanges} />
                         <RegTextField placeholder='State' text={state} tag={3} onTextChanges={this.onTextChanges} />
                         <RegTextField placeholder='City' text={city} tag={4} onTextChanges={this.onTextChanges} />
-                        
+                        <VFDropDown title = 'City' defaultText = 'abc' tag = {1} options={this.cities} onSelect = {this.onSelectDropdown}/>
                         <View style={[LoginStyles.loginButton, { width: '100%' }]}>
                             <TouchableOpacity onPress={this.onLogin} >
                                 <Text style={[LoginStyles.label, { color: 'white' }]}>Register</Text>
