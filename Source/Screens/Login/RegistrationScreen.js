@@ -4,7 +4,6 @@ import { TextField } from 'react-native-material-textfield';
 import { Actions } from 'react-native-router-flux'
 import { LoginStyles } from '../../Styles/LoginStyles'
 import RegTextField from '../../Components/RegTextField'
-import ModalDropdown from 'react-native-modal-dropdown'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 export default class RegistrationScreen extends Component {
@@ -55,13 +54,7 @@ export default class RegistrationScreen extends Component {
                         <RegTextField placeholder='Country' text={country} tag={2} onTextChanges={this.onTextChanges} />
                         <RegTextField placeholder='State' text={state} tag={3} onTextChanges={this.onTextChanges} />
                         <RegTextField placeholder='City' text={city} tag={4} onTextChanges={this.onTextChanges} />
-                        <ModalDropdown
-                            style={styles.dropDown}
-                            options={['AP', 'TE', 'TN', 'GJ', 'UP', 'MP', 'GOA']}
-                            renderRow={this.renderRow}
-                            defaultValue='Select city'
-                            textStyle={styles.dropDownText}
-                        />
+                        
                         <View style={[LoginStyles.loginButton, { width: '100%' }]}>
                             <TouchableOpacity onPress={this.onLogin} >
                                 <Text style={[LoginStyles.label, { color: 'white' }]}>Register</Text>
@@ -74,15 +67,6 @@ export default class RegistrationScreen extends Component {
     }
 }
 
-const styles = StyleSheet.create({
-    dropDown: {
-        marginTop: 20,
-        width: '100%',
-        height: 30,
-    },
-    dropDownText: {
-        fontSize: 18,
-    }
-})
+
 
 const screenSize = Dimensions.get("window")
