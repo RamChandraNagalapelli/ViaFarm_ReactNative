@@ -16,13 +16,6 @@ export default class VFDropDown extends component {
     }
 }
 
-
-
-
-
-
-
-
 const styles = StyleSheet.create({
     dropDown: {
         marginTop: 20,
