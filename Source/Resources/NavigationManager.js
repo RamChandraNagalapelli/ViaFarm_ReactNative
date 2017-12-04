@@ -3,18 +3,7 @@ import React, { Component } from 'react';
 import LoginScreen from '../Screens/Login/LoginScreen';
 import OTPScreen from '../Screens/Login/OTPScreen';
 import RegistrationScreen from '../Screens/Login/RegistrationScreen';
-
-// const Screens = () => (
-//     <Router>
-//         <Stack key="root">
-//         <Scene key='login' component={LoginView} title='Login' initial={!this.state.logged} />
-//             <Scene key="OTPScreen" component={OTPScreen} title="OTP" />
-//             <Scene key="login" component={LoginScreen} title="" />
-//             <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" />
-//         </Stack>
-//     </Router>
-// );
-
+import DashboardScreen from '../Screens/DashboardScreen'
 
 class Screens extends Component {
 
@@ -28,7 +17,8 @@ class Screens extends Component {
                 <Stack key="root">
                     <Scene key="login" component={LoginScreen} />
                     <Scene key="OTPScreen" component={OTPScreen} title="OTP" />
-                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" initial = {true}/>
+                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration"/>
+                    <Scene key="DashboardScreen" component={DashboardScreen} title="Dashboard" />
                 </Stack>
             </Router>
         )

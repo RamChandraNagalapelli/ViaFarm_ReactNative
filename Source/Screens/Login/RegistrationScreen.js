@@ -33,6 +33,10 @@ export default class RegistrationScreen extends Component {
         }
     }
 
+    onRegister = () => {
+        Actions.DashboardScreen();
+    }
+
     onSelectDropdown = (parameters) => {
         console.log('props', parameters)
     }
@@ -54,7 +58,7 @@ export default class RegistrationScreen extends Component {
                         <VFDropDown title = 'State' defaultText = 'Select State' tag = {3} options={this.states} onSelect = {this.onTextChanges}/>
                         <VFDropDown title = 'City' defaultText = 'Select City' tag = {4} options={this.cities} onSelect = {this.onTextChanges}/>
                         <View style={[LoginStyles.loginButton, { width: '100%' }]}>
-                            <TouchableOpacity onPress={this.onLogin} >
+                            <TouchableOpacity onPress={this.onRegister} >
                                 <Text style={[LoginStyles.label, { color: 'white' }]}>Register</Text>
                             </TouchableOpacity>
                         </View>
