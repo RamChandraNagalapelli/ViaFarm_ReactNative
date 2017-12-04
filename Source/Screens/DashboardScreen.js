@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 
 
 export default class DashboardScreen extends Component {
 
-    onSelect = (props) => {
-        console.log('hello', props);
+    onSelect = ({ text, tag }) => {
+        switch (tag) {
+            case 1:
+                Actions.WeatherScreen();
+                break;
+            case 2:
+                Actions.ModernTechnologyScreen();
+                break;
+            case 3:
+                Actions.OrganicFarmingScreen();
+                break;
+            default:
+                Alert.alert(text, 'Comming Soon!!!!!!!')
+                break;
+        }
     }
 
     render() {
@@ -81,6 +95,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         width: '55%',
         fontSize: 20,
+        fontWeight: 'bold',
         color: '#444444'
     },
     imageView: {
