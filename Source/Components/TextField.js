@@ -28,7 +28,6 @@ export default class TextField extends Component {
     componentWillMount() {
         const { text } = this.props
         this.setState({ text })
-        console.log('this.props', this.props)
     }
 
     render() {
@@ -38,7 +37,6 @@ export default class TextField extends Component {
         const { textAlign } = this.props
         const keyboardType = this.props.keyboardType ? this.props.keyboardType : 'default'
 
-        console.log('placeholder', maxLength);
         return (
             <View style = {{ width: '80%' }}>
                 <TextInput

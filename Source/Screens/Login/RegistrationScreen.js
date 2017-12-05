@@ -37,10 +37,6 @@ export default class RegistrationScreen extends Component {
         Actions.DashboardScreen();
     }
 
-    onSelectDropdown = (parameters) => {
-        console.log('props', parameters)
-    }
-
     cities = ['ahmedabad', 'vizag', 'Hyderabad', 'Vijayawada', 'Srikhakulam', 'Surath']
     states = ['AndharaPradesh', 'TamilnNadu', 'Telangane', 'Gujarat', 'Orissa', 'MadyaPradesh', 'UttarPradesh']
     countries = ['India', 'SriLanka', 'Pakisthan', 'Butan', 'America', 'England', 'Australia', 'Newziland']

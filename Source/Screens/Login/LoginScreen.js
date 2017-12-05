@@ -19,10 +19,6 @@ export default class LoginScreen extends Component {
         this.setState({ mobileNo: text })
     }
 
-    componentWillMount() {
-        console.log('App componentWillMount')
-    }
-
     onLogin = () => {
         Keyboard.dismiss()
         if (this.isValidData() === true) {
