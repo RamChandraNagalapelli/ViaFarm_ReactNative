@@ -47,7 +47,7 @@ export default class OTPScreen extends Component {
         }
         if (otp != '123456') {
             Alert.alert('Note', 'Please use \'123456\' as OTP')
-            return false
+            return falsed
         }
         return true
     }
