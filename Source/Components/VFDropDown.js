@@ -1,8 +1,10 @@
-import ModalDropdown from 'react-native-modal-dropdown'
-import React, { Component } from 'react'
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native'
+import ModalDropdown from 'react-native-modal-dropdown';
+import React, { Component } from 'react';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../Actions'
 
-export default class VFDropDown extends Component {
+class VFDropDown extends Component {
 
     state = {
         title: '',
@@ -28,31 +30,59 @@ export default class VFDropDown extends Component {
     }
 
     onSelect = (index) => {
-        const {onSelect} = this.props
-        onSelect({text: this.state.options[index], tag: this.state.tag})
+        switch (this.props.title) {
+            case 'Country':
+                this.props.setCountry(this.props.options[index])
+                this.props.setState(null)
+                this.props.setCity(null)
+                break
+            case 'State':
+                this.props.setState(this.props.options[index])
+                this.props.setCity(null)
+                break
+            case 'City':
+                this.props.setCity(this.props.options[index])
+                break
+            default: break;
+        }
+        console.log('onSelect', this.props.title, this.props.options[index])
+    }
+
+    renderDeopdown() {
+        if (this.props.countries) {
+
+        }
     }
 
     render() {
-        return (
-            <View style = {{marginTop: 20}}>
-                <Text style={styles.title}>{this.state.title}</Text>
-                <View style={styles.deopDownView}>
-                    <ModalDropdown
-                        style={styles.dropDown}
-                        options={this.state.options}
-                        renderRow={this.renderRow}
-                        defaultValue={this.state.defaultText}
-                        textStyle={styles.dropDownText}
-                        disabled={!this.state.options}
-                        onSelect={this.onSelect}
-                    />
-                    <Image
-                        source={require('../Images/downArrow.png')}
-                        resizeMode='contain'
-                        style={styles.arrow}
-                    />
+
+        console.log('this.props.options', this.props.options)
+        if (this.props.options) {
+            return (
+                <View style={{ marginTop: 20 }}>
+                    <Text style={styles.title}>{this.state.title}</Text>
+                    <View style={styles.deopDownView}>
+                        <ModalDropdown
+                            style={styles.dropDown}
+                            // options={this.state.options}
+                            options={this.props.options.map((item) => { return item.name })}
+                            renderRow={this.renderRow}
+                            defaultValue={this.state.defaultText}
+                            textStyle={styles.dropDownText}
+                            disabled={!this.props.countries}
+                            onSelect={this.onSelect}
+                        />
+                        <Image
+                            source={require('../Images/downArrow.png')}
+                            resizeMode='contain'
+                            style={styles.arrow}
+                        />
+                    </View>
                 </View>
-            </View>
+            )
+        }
+        return (
+            <View style={{ flex: 1, backgroundColor: 'red' }} />
         )
     }
 }
@@ -84,3 +114,30 @@ const styles = StyleSheet.create({
 })
 
 const screenSize = Dimensions.get("window")
+
+const mapStateToProps = (state, ownProps) => {
+    var options = []
+    switch (ownProps.title) {
+        case 'Country':
+            options = state.countryList;
+            break;
+        case 'State':
+            if (state.selectedCountry) {
+                options = state.stateList.filter((item) => { return item.countryId === state.selectedCountry.id })
+            }
+            break;
+        case 'City':
+            if (state.selectedState) {
+                options = state.cityList.filter((item) => { return item.stateId === state.selectedState.id })
+            }
+            break;
+        default: break;
+    }
+
+    return {
+        countries: state.countryList,
+        options: options,
+    }
+}
+
+export default connect(mapStateToProps, actions)(VFDropDown);
