@@ -5,6 +5,8 @@ import TextField from '../../Components/TextField'
 import { LoginStyles } from '../../Styles/LoginStyles'
 
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { userService }  from '../../Actions';
+// const userAction = require("../../Actions/userActions");
 
 export default class LoginScreen extends Component {
 
@@ -19,9 +21,19 @@ export default class LoginScreen extends Component {
         this.setState({ mobileNo: text })
     }
 
+    componentWillMount() {
+        console.log('App componentWillMount', userService);
+    }
+
     onLogin = () => {
         Keyboard.dismiss()
         if (this.isValidData() === true) {
+            var data = {
+                mobileNo: this.state.mobileNo
+            }
+            userService.login(data).then(data => {
+                console.log("login",true);
+            });
             Actions.OTPScreen({ mobileNo: this.state.mobileNo })
         }
     }
@@ -61,14 +73,6 @@ export default class LoginScreen extends Component {
                                 <Text style={[LoginStyles.label, {color: 'white'}]}>Login</Text>
                             </TouchableOpacity>
                         </View>
-                        {/* <Text style={{
-                            color: 'black',
-                            fontWeight: 'bold',
-                            padding: 5,
-                            fontSize: 20,
-                            fontFamily: 'System',
-                            alignSelf: 'center',
-                        }}>Via Farm</Text> */}
                     </View>
                 </View>
             </TouchableWithoutFeedback>
