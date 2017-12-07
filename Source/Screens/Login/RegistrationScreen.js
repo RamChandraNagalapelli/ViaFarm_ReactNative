@@ -6,11 +6,8 @@ import { LoginStyles } from '../../Styles/LoginStyles'
 import RegTextField from '../../Components/RegTextField'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import VFDropDown from '../../Components/VFDropDown'
-import { connect } from 'react-redux';
-import * as actions from '../../Actions'
-import { cityList } from '../../Reducers/LocationReducers';
 
-class RegistrationScreen extends Component {
+export default class RegistrationScreen extends Component {
 
     state = {
         name: '',
@@ -37,24 +34,6 @@ class RegistrationScreen extends Component {
             case 4:
                 this.setState({ city: text })
             default: break
-        }
-    }
-
-    onSelectDropDown = ({ text, tag }) => {
-        switch (this.props.title) {
-            case 'Country':
-                this.props.setCountry(this.props.options[index])
-                this.props.setState(null)
-                this.props.setCity(null)
-                break
-            case 'State':
-                this.props.setState(this.props.options[index])
-                this.props.setCity(null)
-                break
-            case 'City':
-                this.props.setCity(this.props.options[index])
-                break
-            default: break;
         }
     }
 
@@ -89,19 +68,13 @@ class RegistrationScreen extends Component {
         )
     }
 }
-
 const screenSize = Dimensions.get("window")
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
     return {
-        countries: state.countryList,
-        states: state.stateList,
-        cities: state.cityList,
-        currentCountry: state.selectedCountry,
-        currentState: state.selectedState,
-        currentCity: state.selectedCity,
         userDetails: state.userDetails
     }
 }
 
 export default connect(mapStateToProps, actions)(RegistrationScreen);
+const screenSize = Dimensions.get("window")
