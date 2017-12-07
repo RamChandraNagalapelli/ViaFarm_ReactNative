@@ -7,7 +7,7 @@ import { LoginStyles } from '../../Styles/LoginStyles'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as userServices from '../../Services/userServices';
 import * as actions from '../../Actions/usersActions'
-// const userAction = require("../../Actions/userActions");
+
 import { connect } from 'react-redux';
 
 class LoginScreen extends Component {
