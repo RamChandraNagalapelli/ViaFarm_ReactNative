@@ -41,28 +41,31 @@ export const stateList = () => {
     return [
         {id: 0, name: 'Andhra Pradesh', countryId: 0},
         {id: 1, name: 'Tamil Nadu', countryId: 0},
-        {id: 2, name: 'Beehar', countryId: 0},
-        {id: 3, name: 'Karnataka', countryId: 0},
-        {id: 4, name: 'Kerala', countryId: 0},
-        {id: 5, name: 'Madhya Pradesh', countryId: 0},
-        {id: 6, name: 'Gujarath', countryId: 0},
-        {id: 7, name: 'Assam', countryId: 0},
-        {id: 8, name: 'Haryana', countryId: 0},
-        {id: 9, name: 'Himachal Pradesh', countryId: 0}
+        {id: 2, name: 'Karnataka', countryId: 0},
+        {id: 3, name: 'Madhya Pradesh', countryId: 0},
+        {id: 4, name: 'Gujarath', countryId: 0},
+        {id: 5, name: 'Maharastra', countryId: 0},
     ]
 }
 
 export const cityList = () => {
     return [
         {id: 0, name: 'Hyderabad', countryId: 0, stateId: 0},
-        {id: 1, name: 'Vizag', countryId: 0, stateId: 0},
-        {id: 2, name: 'Mumbai', countryId: 0, stateId: 0},
-        {id: 3, name: 'Ahmedabad', countryId: 0, stateId: 0},
-        {id: 4, name: 'GandiNagar', countryId: 0, stateId: 0},
-        {id: 5, name: 'Bengaloore', countryId: 0, stateId: 0},
-        {id: 6, name: 'New Dhelli', countryId: 0, stateId: 0},
-        {id: 7, name: 'Bhuvaneswar', countryId: 0, stateId: 0},
-        {id: 8, name: 'Kolkata', countryId: 0, stateId: 0},
-        {id: 9, name: 'Chennai', countryId: 0, stateId: 0}
+        {id: 0, name: 'Vizag', countryId: 0, stateId: 0},
+        {id: 0, name: 'Vijayawada', countryId: 0, stateId: 0},
+        {id: 0, name: 'Srikhakulam', countryId: 0, stateId: 0},
+        {id: 0, name: 'Vijayanagaram', countryId: 0, stateId: 0},
+        {id: 1, name: 'Madras', countryId: 0, stateId: 1},
+        {id: 1, name: 'Madras', countryId: 0, stateId: 1},
+        {id: 1, name: 'Madras', countryId: 0, stateId: 1},
+        {id: 1, name: 'Madras', countryId: 0, stateId: 1},
+        {id: 2, name: 'Paatna', countryId: 0, stateId: 2},
+        {id: 3, name: 'Bengaloore', countryId: 0, stateId: 3},
+        {id: 4, name: 'Trivendram', countryId: 0, stateId: 4},
+        {id: 5, name: 'Boopal', countryId: 0, stateId: 5},
+        {id: 6, name: 'Gandhinagar', countryId: 0, stateId: 6},
+        {id: 7, name: 'Mumbai', countryId: 0, stateId: 7},
+        {id: 8, name: 'Chandigar', countryId: 0, stateId: 8},
+        {id: 9, name: 'Simla', countryId: 0, stateId: 9}
     ]
 }
