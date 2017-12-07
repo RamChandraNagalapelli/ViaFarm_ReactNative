@@ -14,7 +14,7 @@ export default class RegTextField extends Component {
         const { tag } = this.state
         this.setState({ text })
         if (!onTextChanges) return
-        onTextChanges( {text, tag})
+        onTextChanges({text, tag})
     }
 
     componentWillMount() {

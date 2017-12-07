@@ -18,9 +18,9 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen}/>
+                    <Scene key="login" component={LoginScreen} initial = {true} />
                     <Scene key="OTPScreen" component={OTPScreen} title="OTP" />
-                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" initial = {true}/>
+                    <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" />
                     <Scene key="DashboardScreen" component={DashboardScreen} title="Dashboard" />
                     <Scene key="ModernTechnologyScreen" component={ModernTechnologyScreen} title="Modern Technology" />
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title="Organic Farming" />

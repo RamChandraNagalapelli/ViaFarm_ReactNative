@@ -5,10 +5,12 @@ import TextField from '../../Components/TextField'
 import { LoginStyles } from '../../Styles/LoginStyles'
 
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { userService }  from '../../Actions';
+import * as userServices from '../../Services/userServices';
+import * as actions from '../../Actions/usersActions'
 // const userAction = require("../../Actions/userActions");
+import { connect } from 'react-redux';
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -22,7 +24,7 @@ export default class LoginScreen extends Component {
     }
 
     componentWillMount() {
-        console.log('App componentWillMount', userService);
+        console.log('App componentWillMount', userServices);
     }
 
     onLogin = () => {
@@ -31,13 +33,23 @@ export default class LoginScreen extends Component {
             var data = {
                 mobileNo: this.state.mobileNo
             }
-            userService.login(data).then(data => {
-                console.log("login",true);
+            const { saveUser } = this.props;
+            userServices.userService.login(data).then(function(response) {
+                if(response && response.success) {
+                    saveUser(response);
+                    Actions.OTPScreen(data);
+                } else {
+                    Alert.alert('Alert', 'Something went wrong!!!!! \n please try again');
+                }
+            }).catch(function(error) {
+                Alert.alert('Error', 'Something went wrong!!!!!');
             });
-            Actions.OTPScreen({ mobileNo: this.state.mobileNo })
         }
     }
-
+    onCompletion = (data) => {
+        console.log('UserDetails from LoginScreen', data)
+        Actions.OTPScreen({ mobileNo: this.state.mobileNo })
+    }
     isValidData = () => {
         if (!this.state.mobileNo) {
             Alert.alert('Note', 'Please enter mobile number')
@@ -52,6 +64,7 @@ export default class LoginScreen extends Component {
     }
 
     render() {
+        // console.log("userDetails", this.props.userDetails);
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
@@ -80,3 +93,11 @@ export default class LoginScreen extends Component {
     }
 
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userDetails: state.userDetails
+    }
+}
+
+export default connect(mapStateToProps, actions)(LoginScreen);

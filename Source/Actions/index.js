@@ -1,4 +1,3 @@
-export * from './usersActions';
 
 export const setCountry = (country) => {
     return {

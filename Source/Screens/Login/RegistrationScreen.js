@@ -20,6 +20,10 @@ class RegistrationScreen extends Component {
         city: '',
     }
 
+    componentWillMount() {
+        console.log("userDetails", this.props.userDetails);
+    }
+
     onTextChanges = ({ text, tag }) => {
         switch (tag) {
             case 0:
@@ -96,6 +100,7 @@ const mapStateToProps = (state, ownProps) => {
         currentCountry: state.selectedCountry,
         currentState: state.selectedState,
         currentCity: state.selectedCity,
+        userDetails: state.userDetails
     }
 }
 
