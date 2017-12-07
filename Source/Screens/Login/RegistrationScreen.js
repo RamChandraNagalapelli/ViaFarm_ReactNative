@@ -6,8 +6,10 @@ import { LoginStyles } from '../../Styles/LoginStyles'
 import RegTextField from '../../Components/RegTextField'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import VFDropDown from '../../Components/VFDropDown'
+import { connect } from 'react-redux';
+import * as actions from '../../Actions/usersActions'
 
-export default class RegistrationScreen extends Component {
+class RegistrationScreen extends Component {
 
     state = {
         name: '',
@@ -77,4 +79,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, actions)(RegistrationScreen);
-const screenSize = Dimensions.get("window")
