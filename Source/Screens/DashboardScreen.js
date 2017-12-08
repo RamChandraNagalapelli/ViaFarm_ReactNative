@@ -7,6 +7,9 @@ export default class DashboardScreen extends Component {
 
     onSelect = ({ text, tag }) => {
         switch (tag) {
+            case 0:
+                Actions.AgricultureDashboardScreen();
+                break;
             case 1:
                 Actions.WeatherScreen();
                 break;

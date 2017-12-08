@@ -68,6 +68,7 @@ class LoginScreen extends Component {
         return true
     }
 
+    
     render() {
         // console.log("userDetails", this.props.userDetails);
         return (
@@ -92,7 +93,7 @@ class LoginScreen extends Component {
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <Indicator show={true} color='#22bb66' message='Loading...' />
+                    <Indicator show={this.state.showIndicator} color='#22bb66' message='Loading...' />
                 </View>
             </TouchableWithoutFeedback>
         )
