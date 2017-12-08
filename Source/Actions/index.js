@@ -19,3 +19,10 @@ export const setCity = (city) => {
         payload: city,
     };
 };
+
+export const showIndicator = (val) => {
+    return {
+        type: 'show_indicator',
+        payload: val,
+    };
+}

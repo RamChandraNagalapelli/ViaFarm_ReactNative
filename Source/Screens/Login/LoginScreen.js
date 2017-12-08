@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { View, TextInput, StyleSheet, Image, Button, Text, TouchableOpacity, Alert } from 'react-native'
+import { View, TextInput, StyleSheet, Image, Button, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native'
 import { Actions } from 'react-native-router-flux'
-import TextField from '../../Components/TextField'
+import { TextField, Indicator } from '../../Components'
 import { LoginStyles } from '../../Styles/LoginStyles'
 
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
@@ -15,7 +15,8 @@ class LoginScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mobileNo: ''
+            mobileNo: '',
+            showIndicator: false,
         }
     }
 
@@ -30,18 +31,22 @@ class LoginScreen extends Component {
     onLogin = () => {
         Keyboard.dismiss()
         if (this.isValidData() === true) {
+            this.setState({ showIndicator: true })
             var data = {
                 mobileNo: this.state.mobileNo
             }
             const { saveUser } = this.props;
-            userServices.userService.login(data).then(function(response) {
-                if(response && response.success) {
+            var weakSelf = this
+            userServices.userService.login(data).then(function (response) {
+                weakSelf.setState({ showIndicator: false })
+                if (response && response.success) {
                     saveUser(response);
                     Actions.OTPScreen(data);
                 } else {
                     Alert.alert('Alert', 'Something went wrong!!!!! \n please try again');
                 }
-            }).catch(function(error) {
+            }).catch(function (error) {
+                weakSelf.setState({ showIndicator: false })
                 Alert.alert('Error', 'Something went wrong!!!!!');
             });
         }
@@ -78,20 +83,20 @@ class LoginScreen extends Component {
                             text={this.state.mobileNo}
                             placeholder={'Mobile number'}
                             onTextChange={this.onMobileNumberChange}
-                            maxLength = {13}
-                            keyboardType = 'number-pad'
+                            maxLength={13}
+                            keyboardType='number-pad'
                         />
                         <View style={LoginStyles.loginButton}>
                             <TouchableOpacity onPress={this.onLogin} >
-                                <Text style={[LoginStyles.label, {color: 'white'}]}>Login</Text>
+                                <Text style={[LoginStyles.label, { color: 'white' }]}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <Indicator show={true} color='#22bb66' message='Loading...' />
                 </View>
             </TouchableWithoutFeedback>
         )
     }
-
 }
 
 const mapStateToProps = (state) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
-import TextField from '../../Components/TextField'
+import { TextField } from '../../Components'
 import { LoginStyles } from '../../Styles/LoginStyles'
 import { Actions } from 'react-native-router-flux';
 

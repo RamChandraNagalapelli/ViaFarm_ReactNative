@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { TextInput, StyleSheet, View } from 'react-native'
 
-export default class TextField extends Component {
+export class TextField extends Component {
 
     state = {
         text: ''
