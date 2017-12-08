@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import * as reducer from './LocationReducers';
 import * as userReducer from './userReducer';
+import { localizedLanguage } from './LanguageReducer';
 
 export default combineReducers({
     countryList: reducer.countryList,
@@ -10,5 +11,6 @@ export default combineReducers({
     selectedState: reducer.setState,
     selectedCity: reducer.setCity,
     userDetails: userReducer.setUser,
+    language: localizedLanguage,
 });
 

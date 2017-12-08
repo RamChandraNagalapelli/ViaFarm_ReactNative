@@ -11,3 +11,4 @@ AppRegistry.registerComponent('ViaFarm', () => App);
 // MATERIAL_TEXTFIELD   >>> npm install --save react-native-material-textfield
 // REDUX                >>> npm install --save redux
 // REACT_REDUX          >>> npm install --save react-redux
+// REACT-LOCALIZATION   >>> npm install --save react-localization

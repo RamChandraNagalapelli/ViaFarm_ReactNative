@@ -6,7 +6,7 @@ import { LoginStyles } from '../../Styles/LoginStyles'
 
 import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 import * as userServices from '../../Services/userServices';
-import * as actions from '../../Actions/usersActions'
+import * as actions from '../../Actions';
 
 import { connect } from 'react-redux';
 
@@ -70,7 +70,7 @@ class LoginScreen extends Component {
 
     
     render() {
-        // console.log("userDetails", this.props.userDetails);
+        const { language } = this.props
         return (
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={{ width: '100%', height: '100%', backgroundColor: 'white' }}>
@@ -82,14 +82,14 @@ class LoginScreen extends Component {
                         />
                         <TextField
                             text={this.state.mobileNo}
-                            placeholder={'Mobile number'}
+                            placeholder={language.mobileNumber}
                             onTextChange={this.onMobileNumberChange}
                             maxLength={13}
                             keyboardType='number-pad'
                         />
                         <View style={LoginStyles.loginButton}>
                             <TouchableOpacity onPress={this.onLogin} >
-                                <Text style={[LoginStyles.label, { color: 'white' }]}>Login</Text>
+                                <Text style={[LoginStyles.label, { color: 'white' }]}>{language.login}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -102,7 +102,8 @@ class LoginScreen extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        userDetails: state.userDetails
+        userDetails: state.userDetails,
+        language: state.language,
     }
 }
 

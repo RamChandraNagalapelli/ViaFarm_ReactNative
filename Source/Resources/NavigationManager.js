@@ -8,6 +8,8 @@ import ModernTechnologyScreen from '../Screens/ModernTechnologyScreen';
 import OrganicFarmingScreen from '../Screens/OrganicFarmingScreen'
 import WeatherScreen from '../Screens/WeatherScreen';
 import AgricultureDashboardScreen from '../Screens/Agriculture/AgricultureDashboardScreen';
+import { connect } from 'react-redux';
+import * as actions from '../Actions';
 
 class Screens extends Component {
 
@@ -15,14 +17,18 @@ class Screens extends Component {
         logged: true
     }
 
+    componentWillMount() {
+        this.props.setLanguage('tl');
+    }
+
     render() {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} />
+                    <Scene key="login" component={LoginScreen} hideNavBar={true} initial = {true} />
                     <Scene key="OTPScreen" component={OTPScreen} title="OTP" />
                     <Scene key="RegistrationScreen" component={RegistrationScreen} title="Registration" />
-                    <Scene key="DashboardScreen" component={DashboardScreen} title="Dashboard" initial = {true}/>
+                    <Scene key="DashboardScreen" component={DashboardScreen} title="Dashboard"/>
                     <Scene key="ModernTechnologyScreen" component={ModernTechnologyScreen} title="Modern Technology" />
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title="Organic Farming" />
                     <Scene key="WeatherScreen" component={WeatherScreen} title="Weather" />
@@ -33,5 +39,4 @@ class Screens extends Component {
     }
 }
 
-
-export default Screens;
+export default connect(null, actions)(Screens);

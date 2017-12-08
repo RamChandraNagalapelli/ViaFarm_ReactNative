@@ -55,7 +55,6 @@ class VFDropDown extends Component {
     }
 
     render() {
-
         console.log('this.props.options', this.props.options)
         if (this.props.options) {
             return (
@@ -64,7 +63,6 @@ class VFDropDown extends Component {
                     <View style={styles.deopDownView}>
                         <ModalDropdown
                             style={styles.dropDown}
-                            // options={this.state.options}
                             options={this.props.options.map((item) => { return item.name })}
                             renderRow={this.renderRow}
                             defaultValue={this.state.defaultText}
