@@ -1,14 +1,64 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
+import GridView from "react-native-easy-grid-view";
 
 
 export default class AgricultureDashboardScreen extends Component {
+
+    constructor(props) {
+        super(props);
+        var dataArray = ['Fruits', 'Vegetables', 'Pulses', 'Seeds', 'Fertilizers']
+        var displayArray = []
+        for (var i=0; i<dataArray.length; i++) {
+            displayArray.push({
+                tag: i,
+                text: dataArray[i],
+                backgroundColor: 'black'
+            })
+        }
+        var ds = new GridView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.state = {
+            dataSource: ds.cloneWithCells(
+                displayArray
+                , 2),
+            cellWidth: 0,
+            cellHeight: 0
+        };
+    }
+
+    _onSelectCell=(data)=> {
+        console.log('cellData', data)
+      Alert.alert('Selected Item', data.text)
+    }
+
+    _renderCell(cell) {
+        return (<View onLayout={event => {
+          console.log(cell)
+          var width = event.nativeEvent.layout.width;
+         if(this.state.cellWidth!=width){
+         this.setState({cellWidth:width})
+         }
+         if(this.state.cellHeight!=width){
+         this.setState({cellHeight:width})
+         }
+        }}>
+        <TouchableOpacity onPress={this._onSelectCell.bind(this, cell)}>
+            <View style={{width:this.state.cellWidth, height:this.state.cellHeight, justifyContent:'center', backgroundColor:'white', borderRadius: 3, borderWidth: 1, borderColor: '#88888888',}}>
+                <View style={{backgroundColor:'black', height: '60%', width: '60%', justifyContent: 'center', alignItems: 'center', marginLeft: '20%'}}/>
+                <Text style={{backgroundColor:'white',textAlign:'center',color:'black',fontSize:20, paddingTop: 10}}>{cell.text}</Text>
+            </View>
+        </TouchableOpacity>
+      </View>)
+    }
+
 	render() {
 		return(
-			<ScrollView style={styles.mainView}>
-				<AgricultureDashboardCard />	
-				<AgricultureDashboardCard />	
-			</ScrollView>
+		<View  style={styles.collectionView}>
+            <GridView dataSource={this.state.dataSource}
+            spacing={20}
+            renderCell={this._renderCell.bind(this)}
+            />
+        </View>
 		)
 	}
 }
@@ -16,8 +66,8 @@ export default class AgricultureDashboardScreen extends Component {
 export class AgricultureDashboardCard extends Component {
 
     render() {
-    	const marginTop = 10;
-        const marginBottom = 10;
+    	//const marginTop = 10;
+        //const marginBottom = 10;
        	const image = require('../../Images/logo.png');
 		return (
             <TouchableOpacity style={[styles.cardView, { marginTop: marginTop, marginBottom: marginBottom }]}>
@@ -35,6 +85,21 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         paddingLeft: 20,
         paddingRight: 20,
+    },
+    collectionView: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: 'white',
+        padding: 20,
+        paddingRight: 30,
+    },
+    imageBackgroundView: {
+        backgroundColor:'black',
+        height: '60%', 
+        width: '60%', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        marginLeft: '20%'
     },
     cardView: {
         flex: 0, 
