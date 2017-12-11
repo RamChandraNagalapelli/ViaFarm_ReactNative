@@ -30,6 +30,7 @@ class LoginScreen extends Component {
 
     onLogin = () => {
         Keyboard.dismiss()
+        const { language } = this.props
         if (this.isValidData() === true) {
             this.setState({ showIndicator: true })
             var data = {
@@ -43,32 +44,35 @@ class LoginScreen extends Component {
                     saveUser(response);
                     Actions.OTPScreen(data);
                 } else {
-                    Alert.alert('Alert', 'Something went wrong!!!!! \n please try again');
+                    Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
                 }
             }).catch(function (error) {
                 weakSelf.setState({ showIndicator: false })
-                Alert.alert('Error', 'Something went wrong!!!!!');
+                Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
             });
         }
     }
+
     onCompletion = (data) => {
         console.log('UserDetails from LoginScreen', data)
         Actions.OTPScreen({ mobileNo: this.state.mobileNo })
     }
+
     isValidData = () => {
+        const { language } = this.props
         if (!this.state.mobileNo) {
-            Alert.alert('Note', 'Please enter mobile number')
+            Alert.alert(language.note, language.pleaseEnterMobileNo, [{text: (language ? language.ok : '')}]);
             return false
         }
         const { mobileNo } = this.state
         if (mobileNo.length < 10) {
-            Alert.alert('Note', 'Please enter valid mobile number')
+            Alert.alert(language.note, language.pleaseEnterValidMobileNo, [{text: (language ? language.ok : '')}]);
             return false
         }
         return true
     }
 
-    
+
     render() {
         const { language } = this.props
         return (
@@ -82,14 +86,14 @@ class LoginScreen extends Component {
                         />
                         <TextField
                             text={this.state.mobileNo}
-                            placeholder={language.mobileNumber}
+                            placeholder={language ? language.mobileNumber : ''}
                             onTextChange={this.onMobileNumberChange}
                             maxLength={13}
                             keyboardType='number-pad'
                         />
                         <View style={LoginStyles.loginButton}>
                             <TouchableOpacity onPress={this.onLogin} >
-                                <Text style={[LoginStyles.label, { color: 'white' }]}>{language.login}</Text>
+                                <Text style={[LoginStyles.label, { color: 'white' }]}>{language ? language.login : ''}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

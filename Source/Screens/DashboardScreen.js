@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
 
-
-export default class DashboardScreen extends Component {
+class DashboardScreen extends Component {
 
     onSelect = ({ text, tag }) => {
         switch (tag) {
@@ -26,13 +26,14 @@ export default class DashboardScreen extends Component {
     }
 
     render() {
+        const { language } = this.props
         return (
             <ScrollView style={styles.mainView} >
-                <DashboardCard text='Agriculture' tag={0} onPress={this.onSelect} />
-                <DashboardCard text='Weather' tag={1} onPress={this.onSelect} />
-                <DashboardCard text='Modern Technology' tag={2} onPress={this.onSelect} />
-                <DashboardCard text='Organic Farming' tag={3} onPress={this.onSelect} />
-                <DashboardCard text='Trading' tag={4} onPress={this.onSelect} />
+                <DashboardCard text={language.agriculture} tag={0} onPress={this.onSelect} />
+                <DashboardCard text={language.weather} tag={1} onPress={this.onSelect} />
+                <DashboardCard text={language.modernTechnology} tag={2} onPress={this.onSelect} />
+                <DashboardCard text={language.organicFarming} tag={3} onPress={this.onSelect} />
+                <DashboardCard text={language.trading} tag={4} onPress={this.onSelect} />
             </ScrollView>
         )
     }
@@ -107,3 +108,11 @@ const styles = StyleSheet.create({
         margin: 10,
     }
 })
+
+const mapStateToProps = state => {
+    return {
+        language: state.language
+    }
+}
+
+export default connect(mapStateToProps)(DashboardScreen);
