@@ -9,6 +9,7 @@ export const LoginStyles = StyleSheet.create({
     },
     loginButton: {
         marginTop: 50,
+        marginBottom: 50,
         backgroundColor: '#4f8f42',
         width: '80%',
         borderRadius: 5,

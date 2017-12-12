@@ -21,7 +21,7 @@ class Screens extends Component {
 
     componentWillMount() {
         if (!this.props.language) {
-            this.props.setLanguage('en');
+            // this.props.setLanguage('en');
         }
         this.setLanguage()
     }
@@ -30,8 +30,10 @@ class Screens extends Component {
         try {
             const value = await AsyncStorage.getItem('language');
             if (value !== null) {
+                console.log('value found ', value)
                 this.props.setLanguage(value);
             } else {
+                console.log('value not found')
                 this.props.setLanguage('en');
                 await AsyncStorage.setItem('language', 'en');
             }
@@ -46,9 +48,9 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} hideNavBar={true} initial={true} />
+                    <Scene key="login" component={LoginScreen} hideNavBar={true} />
                     <Scene key="OTPScreen" component={OTPScreen} title={language ? language.OTP : ''} />
-                    <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} />
+                    <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} initial={true} />
                     <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} />
                     <Scene key="ModernTechnologyScreen" component={ModernTechnologyScreen} title={language ? language.modernTechnology : ''} />
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''} />

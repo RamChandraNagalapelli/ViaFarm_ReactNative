@@ -1,6 +1,6 @@
 export const setCountry = (state = null, action) => {
     const { type, payload } = action
-    if (type === 'set_country') {
+    if (type === 'set_country' && payload) {
         return payload;
     }
     return state
@@ -8,7 +8,7 @@ export const setCountry = (state = null, action) => {
 
 export const setState = (state = null, action) => {
     const { type, payload } = action
-    if (type === 'set_state') {
+    if (type === 'set_state' && payload) {
         return payload;
     }
     return state
@@ -16,7 +16,7 @@ export const setState = (state = null, action) => {
 
 export const setCity = (state = null, action) => {
     const { type, payload } = action
-    if (type === 'set_city') {
+    if (type === 'set_city' && payload) {
         return payload;
     }
     return state
@@ -60,12 +60,5 @@ export const cityList = () => {
         {id: 1, name: 'Madras', countryId: 0, stateId: 1},
         {id: 1, name: 'Madras', countryId: 0, stateId: 1},
         {id: 2, name: 'Paatna', countryId: 0, stateId: 2},
-        {id: 3, name: 'Bengaloore', countryId: 0, stateId: 3},
-        {id: 4, name: 'Trivendram', countryId: 0, stateId: 4},
-        {id: 5, name: 'Boopal', countryId: 0, stateId: 5},
-        {id: 6, name: 'Gandhinagar', countryId: 0, stateId: 6},
-        {id: 7, name: 'Mumbai', countryId: 0, stateId: 7},
-        {id: 8, name: 'Chandigar', countryId: 0, stateId: 8},
-        {id: 9, name: 'Simla', countryId: 0, stateId: 9}
     ]
 }

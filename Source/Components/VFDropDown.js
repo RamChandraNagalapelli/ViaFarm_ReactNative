@@ -1,6 +1,6 @@
 import ModalDropdown from 'react-native-modal-dropdown';
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../Actions'
 
@@ -8,106 +8,98 @@ class VFDropDown extends Component {
 
     state = {
         title: '',
-        defaultText: '',
-        text: '',
         tag: 0,
         options: [],
     }
 
     componentWillMount() {
         const { title, defaultText, tag, options } = this.props
-        this.setState({ title, defaultText, tag, options })
+        this.setState({ title, defaultText, tag, options, text: defaultText })
     }
 
-    componentWillReceiveProps() {
-        this.forceUpdate()
+    componentWillReceiveProps(props) {
+        if (props.reset) {
+            this.setState({text: this.props.defaultText})
+        }
+    }
+    onPressDropDownButton = () => {
+        this.setState({ displayPicker: !this.state.displayPicker })
     }
 
-    renderRow(item) {
+    onPressDropDownRow = (index) => {
+        this.setState({ displayPicker: !this.state.displayPicker, text: this.props.options[index].name })
+        if (this.props.onSelect) {
+            this.props.onSelect({ tag: this.props.tag, index: index })
+        }
+    }
+
+    renderRow(data) {
         return (
-            <Text style={{ width: screenSize.width * 0.8 - 10, padding: 10 }}>{item}</Text>
+            <TouchableOpacity onPress={this.onPressDropDownRow.bind(this, data.index)}>
+                <Text style={{ padding: 10 }}>{data.item.name}</Text>
+            </TouchableOpacity>
         )
     }
 
-    onSelect = (index) => {
-        switch (this.props.title) {
-            case 'Country':
-                this.props.setCountry(this.props.options[index])
-                this.props.setState(null)
-                this.props.setCity(null)
-                break
-            case 'State':
-                this.props.setState(this.props.options[index])
-                this.props.setCity(null)
-                break
-            case 'City':
-                this.props.setCity(this.props.options[index])
-                break
-            default: break;
+    renderPicker() {
+        if (this.state.displayPicker && this.props.options.length > 0) {
+            return (
+                <FlatList
+                    style={styles.dropDownList}
+                    data={this.props.options}
+                    renderItem={this.renderRow.bind(this)}
+                />
+            )
         }
-        console.log('onSelect', this.props.title, this.props.options[index])
-    }
-
-    renderDeopdown() {
-        if (this.props.countries) {
-
-        }
+        return null
     }
 
     render() {
-        console.log('this.props.options', this.props.options)
-        if (this.props.options) {
-            return (
-                <View style={{ marginTop: 20 }}>
-                    <Text style={styles.title}>{this.state.title}</Text>
-                    <View style={styles.deopDownView}>
-                        <ModalDropdown
-                            style={styles.dropDown}
-                            options={this.props.options.map((item) => { return item.name })}
-                            renderRow={this.renderRow}
-                            defaultValue={this.state.defaultText}
-                            textStyle={styles.dropDownText}
-                            disabled={!this.props.countries}
-                            onSelect={this.onSelect}
-                        />
-                        <Image
-                            source={require('../Images/downArrow.png')}
-                            resizeMode='contain'
-                            style={styles.arrow}
-                        />
-                    </View>
-                </View>
-            )
+        const { options } = this.props
+        const { text, defaultText } = this.state
+        if (options.length <= 0 && text !== defaultText) {
+            this.setState({ text: defaultText })
         }
         return (
-            <View style={{ flex: 1, backgroundColor: 'red' }} />
+            <View style={{ marginTop: 20 }}>
+                <Text style={styles.title}>{this.state.title}</Text>
+                <TouchableWithoutFeedback onPress={this.onPressDropDownButton}>
+                    <View style={styles.dropDownView}>
+                        <Text style={styles.dropDownText}>{this.props.defaultText}</Text>
+                        <Image source={require('../Images/downArrow.png')} resizeMode='contain' style={styles.arrow} />
+                    </View>
+                </TouchableWithoutFeedback>
+                {this.renderPicker()}
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    deopDownView: {
+    dropDownView: {
         flexDirection: 'row',
         padding: 5,
         borderWidth: 1,
         borderColor: '#88888888',
         borderRadius: 2,
     },
-    dropDown: {
+    dropDownText: {
         flex: 1,
         height: '100%',
-    },
-    dropDownText: {
-        fontSize: 17,
+        fontSize: 16,
         fontFamily: 'System',
+        color: '#000000dd',
     },
     arrow: {
         height: '100%',
     },
     title: {
-        fontSize: 17,
+        fontSize: 16,
         marginBottom: 5,
         color: 'gray',
+    },
+    dropDownList: {
+        height: 150
     }
 })
 
@@ -133,8 +125,8 @@ const mapStateToProps = (state, ownProps) => {
     }
 
     return {
-        countries: state.countryList,
-        options: options,
+        // countries: state.countryList,
+        // options: options,
     }
 }
 

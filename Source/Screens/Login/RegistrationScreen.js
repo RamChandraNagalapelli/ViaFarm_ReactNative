@@ -1,64 +1,102 @@
 import React, { Component } from 'react'
-import { View, TextInput, StyleSheet, Image, Button, Text, TouchableOpacity, Alert, Dimensions } from 'react-native'
-import { TextField } from 'react-native-material-textfield';
+import { View, TextInput, StyleSheet, Image, Button, Text, TouchableOpacity, Alert, Dimensions, ScrollView } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { LoginStyles } from '../../Styles/LoginStyles'
 import RegTextField from '../../Components/RegTextField'
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import VFDropDown from '../../Components/VFDropDown'
 import { connect } from 'react-redux';
-import * as actions from '../../Actions/usersActions'
+import * as actions from '../../Actions'
 
 class RegistrationScreen extends Component {
 
     state = {
         name: '',
-        pincode: '',
-        country: '',
-        state: '',
-        city: '',
+        surname: '',
+        selectedLanguage: null,
+        selectedCity: null,
+        selectedState: null,
+        filteredCities: [],
     }
 
     componentWillMount() {
         console.log("userDetails", this.props.userDetails);
     }
 
-    onTextChanges = ({ text, tag }) => {
+    onTextChanges = ({ text, tag, index }) => {
         switch (tag) {
             case 0:
                 this.setState({ name: text })
+                break
             case 1:
-                this.setState({ pincode: text })
+                this.setState({ surname: text })
+                break
             case 2:
-                this.setState({ country: text, state: '', city: '', states: this.states, cities: [] })
+                this.setState({ selectedLanguage: this.languages[index] })
+                break
             case 3:
-                this.setState({ state: text, city: '', cities: this.cities })
+                const selectedState = this.props.states[index]
+                this.setState({ selectedState: selectedState, selectedCity: null })
+                const { cities } = this.props
+                if (selectedState && cities) {
+                    const arrCities = cities.filter((item) => { return item.stateId === selectedState.id })
+                    this.setState({ filteredCities: arrCities })
+                }
+                break
             case 4:
-                this.setState({ city: text })
+                this.setState({ selectedCity: this.state.filteredCities[index] })
             default: break
         }
     }
 
-    onRegister = () => {
-        Actions.DashboardScreen();
+    isValidData = () => {
+        const { name, surname, selectedCity, selectedState } = this.state
+        if (!name) {
+            Alert.alert('Note', 'Please enter Name');
+            return false
+        }
+        if (!surname) {
+            Alert.alert('Note', 'Please enter Surname');
+            return false
+        }
+        if (!selectedState) {
+            Alert.alert('Note', 'Please select State');
+            return false
+        }
+        if (!selectedCity) {
+            Alert.alert('Note', 'Please select City');
+            return false
+        }
+        return true
     }
 
-    cities = ['ahmedabad', 'vizag', 'Hyderabad', 'Vijayawada', 'Srikhakulam', 'Surath']
-    states = ['AndharaPradesh', 'TamilnNadu', 'Telangane', 'Gujarat', 'Orissa', 'MadyaPradesh', 'UttarPradesh']
-    countries = ['India', 'SriLanka', 'Pakisthan', 'Butan', 'America', 'England', 'Australia', 'Newziland']
+    onRegister = () => {
+        if (this.isValidData() === true) {
+            if (this.state.selectedLanguage) {
+                this.props.setLanguage(this.state.selectedLanguage.id)
+            }
+            Actions.DashboardScreen()
+        }
+    }
+
+    languages = [{ name: 'English', id: 'en' }, { name: 'हिंदी', id: 'en' }, { name: 'తెలుగు', id: 'tl' }]
 
     render() {
-        const { name, pincode, country, state, city } = this.state
+        const { name, pincode, selectedState, selectedCity, filteredCities, selectedLanguage } = this.state
+        const { states } = this.props
+        const defaultState = selectedState ? selectedState.name : 'Select State'
+        const defaultCity = selectedCity ? selectedCity.name : 'Select City'
+        const defaultLanguage = selectedLanguage ? selectedLanguage.name : 'Select Language'
 
         return (
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={{ flex: 1, width: '100%', height: '100%', backgroundColor: 'white', alignItems: 'center' }} >
+            <ScrollView onPress={Keyboard.dismiss} style={{ backgroundColor: 'white' }}>
+                <View style={{ width: '100%', height: '100%', backgroundColor: 'white', alignItems: 'center' }} >
                     <View style={{ width: '80%', paddingTop: 50 }}>
                         <RegTextField placeholder='Name' text={name} tag={0} onTextChanges={this.onTextChanges} />
-                        <RegTextField placeholder='Pincode' text={pincode} tag={1} onTextChanges={this.onTextChanges} maxLength={6} keyboardType='number-pad' />
-                        <VFDropDown title = 'Country' defaultText = 'Select Country' tag = {2} options={this.countries} onSelect = {this.onTextChanges}/>
-                        <VFDropDown title = 'State' defaultText = 'Select State' tag = {3} options={this.states} onSelect = {this.onTextChanges}/>
-                        <VFDropDown title = 'City' defaultText = 'Select City' tag = {4} options={this.cities} onSelect = {this.onTextChanges}/>
+                        <RegTextField placeholder='Surname' text={pincode} tag={1} onTextChanges={this.onTextChanges} />
+                        <VFDropDown title='Language' defaultText={defaultLanguage} tag={2} options={this.languages} onSelect={this.onTextChanges} />
+                        <VFDropDown title='State' defaultText={defaultState} tag={3} options={states} onSelect={this.onTextChanges} />
+                        <VFDropDown title='City' defaultText={defaultCity} tag={4} options={filteredCities} onSelect={this.onTextChanges} />
                         <View style={[LoginStyles.loginButton, { width: '100%' }]}>
                             <TouchableOpacity onPress={this.onRegister} >
                                 <Text style={[LoginStyles.label, { color: 'white' }]}>Register</Text>
@@ -66,15 +104,19 @@ class RegistrationScreen extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </ScrollView>
         )
     }
 }
 const screenSize = Dimensions.get("window")
 
 const mapStateToProps = (state) => {
+    const { stateList, cityList, userDetails } = state
+
     return {
-        userDetails: state.userDetails
+        userDetails: userDetails,
+        states: stateList,
+        cities: cityList,
     }
 }
 
