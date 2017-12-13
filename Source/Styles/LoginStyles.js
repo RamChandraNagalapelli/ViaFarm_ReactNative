@@ -30,5 +30,14 @@ export const LoginStyles = StyleSheet.create({
         fontSize: 16,
         alignSelf: 'center',
         marginTop: 50,
+    },
+    address: {
+        fontSize: 16,
+        borderWidth: 1,
+        borderRadius: 3,
+        borderColor: '#88888888',
+        padding: 5,
+        marginTop: 30,
+        marginBottom: 20,
     }
 })

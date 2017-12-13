@@ -13,6 +13,7 @@ class RegistrationScreen extends Component {
     state = {
         name: '',
         surname: '',
+        address: '',
         selectedLanguage: null,
         selectedCity: null,
         selectedState: null,
@@ -32,9 +33,12 @@ class RegistrationScreen extends Component {
                 this.setState({ surname: text })
                 break
             case 2:
-                this.setState({ selectedLanguage: this.languages[index] })
+                this.setState({ address: text })
                 break
             case 3:
+                this.setState({ selectedLanguage: this.languages[index] })
+                break
+            case 4:
                 const selectedState = this.props.states[index]
                 this.setState({ selectedState: selectedState, selectedCity: null })
                 const { cities } = this.props
@@ -43,7 +47,7 @@ class RegistrationScreen extends Component {
                     this.setState({ filteredCities: arrCities })
                 }
                 break
-            case 4:
+            case 5:
                 this.setState({ selectedCity: this.state.filteredCities[index] })
             default: break
         }
@@ -82,7 +86,7 @@ class RegistrationScreen extends Component {
     languages = [{ name: 'English', id: 'en' }, { name: 'हिंदी', id: 'en' }, { name: 'తెలుగు', id: 'tl' }]
 
     render() {
-        const { name, pincode, selectedState, selectedCity, filteredCities, selectedLanguage } = this.state
+        const { name, pincode, address, selectedState, selectedCity, filteredCities, selectedLanguage } = this.state
         const { states } = this.props
         const defaultState = selectedState ? selectedState.name : 'Select State'
         const defaultCity = selectedCity ? selectedCity.name : 'Select City'
@@ -94,9 +98,10 @@ class RegistrationScreen extends Component {
                     <View style={{ width: '80%', paddingTop: 50 }}>
                         <RegTextField placeholder='Name' text={name} tag={0} onTextChanges={this.onTextChanges} />
                         <RegTextField placeholder='Surname' text={pincode} tag={1} onTextChanges={this.onTextChanges} />
-                        <VFDropDown title='Language' defaultText={defaultLanguage} tag={2} options={this.languages} onSelect={this.onTextChanges} />
-                        <VFDropDown title='State' defaultText={defaultState} tag={3} options={states} onSelect={this.onTextChanges} />
-                        <VFDropDown title='City' defaultText={defaultCity} tag={4} options={filteredCities} onSelect={this.onTextChanges} />
+                        <RegTextField placeholder='Address' text={address} tag={2} onTextChanges={this.onTextChanges} maxLength={100} multiline={true} />
+                        <VFDropDown title='Language' defaultText={defaultLanguage} tag={3} options={this.languages} onSelect={this.onTextChanges} />
+                        <VFDropDown title='State' defaultText={defaultState} tag={4} options={states} onSelect={this.onTextChanges} />
+                        <VFDropDown title='City' defaultText={defaultCity} tag={5} options={filteredCities} onSelect={this.onTextChanges} />
                         <View style={[LoginStyles.loginButton, { width: '100%' }]}>
                             <TouchableOpacity onPress={this.onRegister} >
                                 <Text style={[LoginStyles.label, { color: 'white' }]}>Register</Text>

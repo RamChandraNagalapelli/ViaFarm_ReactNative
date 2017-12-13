@@ -1,6 +1,11 @@
 import { Scene, Router, Stack } from 'react-native-router-flux';
 import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
+import { connect } from 'react-redux';
+import * as actions from '../Actions';
+import { setLanguage } from '../Actions';
+
+
 import LoginScreen from '../Screens/Login/LoginScreen';
 import OTPScreen from '../Screens/Login/OTPScreen';
 import RegistrationScreen from '../Screens/Login/RegistrationScreen';
@@ -9,9 +14,7 @@ import ModernTechnologyScreen from '../Screens/ModernTechnologyScreen';
 import OrganicFarmingScreen from '../Screens/OrganicFarmingScreen'
 import WeatherScreen from '../Screens/WeatherScreen';
 import AgricultureDashboardScreen from '../Screens/Agriculture/AgricultureDashboardScreen';
-import { connect } from 'react-redux';
-import * as actions from '../Actions';
-import { setLanguage } from '../Actions';
+import TradingScreen from '../Screens/TradingScreen';
 
 class Screens extends Component {
 
@@ -56,6 +59,7 @@ class Screens extends Component {
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''} />
                     <Scene key="WeatherScreen" component={WeatherScreen} title={language ? language.weather : ''} />
                     <Scene key="AgricultureDashboardScreen" component={AgricultureDashboardScreen} title={language ? language.agriculture : ''} />
+                    <Scene key="TradingScreen" component={TradingScreen} title={language ? language.trading : ''} />
                 </Stack>
             </Router>
         )

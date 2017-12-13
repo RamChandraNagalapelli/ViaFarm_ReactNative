@@ -14,7 +14,7 @@ export default class RegTextField extends Component {
         const { tag } = this.state
         this.setState({ text })
         if (!onTextChanges) return
-        onTextChanges({text, tag})
+        onTextChanges({ text, tag })
     }
 
     componentWillMount() {
@@ -26,19 +26,19 @@ export default class RegTextField extends Component {
 
     render() {
         const { text } = this.state
-        const maxLength = this.props.maxLength ? this.props.maxLength : 15
-        const { keyboardType } = this.props
-        const { placeholder } = this.props
+        const { keyboardType, placeholder, multiline, maxLength } = this.props
+        const maxLenth = maxLength ? maxLength : 15
 
         return (
             <TextField
-                label = {placeholder}
-                value = {text}
-                onChangeText = {this.onChangeText}
-                clearButtonMode = 'while-editing'
-                keyboardType = {keyboardType}
-                maxLength = {maxLength}
-                tintColor = 'brown'
+                label={placeholder}
+                value={text}
+                onChangeText={this.onChangeText}
+                clearButtonMode='while-editing'
+                keyboardType={keyboardType}
+                maxLength={maxLenth}
+                tintColor='brown'
+                multiline={multiline}
             />
         )
     }
