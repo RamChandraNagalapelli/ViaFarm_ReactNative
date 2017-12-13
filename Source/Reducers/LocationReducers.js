@@ -1,11 +1,3 @@
-export const setCountry = (state = null, action) => {
-    const { type, payload } = action
-    if (type === 'set_country' && payload) {
-        return payload;
-    }
-    return state
-}
-
 export const setState = (state = null, action) => {
     const { type, payload } = action
     if (type === 'set_state' && payload) {

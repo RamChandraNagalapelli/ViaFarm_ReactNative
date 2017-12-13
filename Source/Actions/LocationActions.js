@@ -1,10 +1,3 @@
-export const setCountry = (country) => {
-    return {
-        type: 'set_country',
-        payload: country,
-    };
-};
-
 export const setState = (state) => {
     return {
         type: 'set_state',
