@@ -7,6 +7,7 @@ import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 import VFDropDown from '../../Components/VFDropDown'
 import { connect } from 'react-redux';
 import * as actions from '../../Actions'
+import * as registrationServices from '../../Services/registrationService';
 
 class RegistrationScreen extends Component {
 
@@ -21,7 +22,7 @@ class RegistrationScreen extends Component {
     }
 
     componentWillMount() {
-        console.log("userDetails", this.props.userDetails);
+        console.log("mobileNo", this.props.mobileNo);
     }
 
     onTextChanges = ({ text, tag, index }) => {
@@ -43,7 +44,7 @@ class RegistrationScreen extends Component {
                 this.setState({ selectedState: selectedState, selectedCity: null })
                 const { cities } = this.props
                 if (selectedState && cities) {
-                    const arrCities = cities.filter((item) => { return item.stateId === selectedState.id })
+                    const arrCities = cities.filter((item) => { return item.state._id === selectedState._id })
                     this.setState({ filteredCities: arrCities })
                 }
                 break
@@ -79,7 +80,30 @@ class RegistrationScreen extends Component {
             if (this.state.selectedLanguage) {
                 this.props.setLanguage(this.state.selectedLanguage.id)
             }
-            Actions.DashboardScreen()
+            console.log("mobileNo", this.props.mobileNo);
+            const data = {
+                firstName: this.state.name,
+                lastName: this.state.surname,
+                address: this.state.address,
+                city: this.state.selectedCity._id,
+                state: this.state.selectedState._id,
+                mobileNo: this.props.mobileNo 
+            };
+            
+            console.log("data in register", data);
+            const { saveUser } = this.props;
+            registrationServices.registrationService.registration(data).then(function(response) {
+                if(response && response.success) {
+                    saveUser(response.data);
+                    Actions.DashboardScreen();        
+                } else {
+                    Alert.alert("alert", "somethingWentWrong");
+                }    
+            }).catch(function(error) {
+                Alert.alert("alert", "somethingWentWrong");
+                console.log("error in registration calling api", error);
+            });
+            
         }
     }
 
@@ -88,6 +112,7 @@ class RegistrationScreen extends Component {
     render() {
         const { name, pincode, address, selectedState, selectedCity, filteredCities, selectedLanguage } = this.state
         const { states } = this.props
+        // console.log("states in reg", states);
         const defaultState = selectedState ? selectedState.name : 'Select State'
         const defaultCity = selectedCity ? selectedCity.name : 'Select City'
         const defaultLanguage = selectedLanguage ? selectedLanguage.name : 'Select Language'
@@ -117,10 +142,13 @@ const screenSize = Dimensions.get("window")
 
 const mapStateToProps = (state) => {
     const { stateList, cityList, userDetails } = state
-
+    var states = [];
+    if (stateList != null) {
+        states = stateList
+    }
     return {
         userDetails: userDetails,
-        states: stateList,
+        states: states,
         cities: cityList,
     }
 }

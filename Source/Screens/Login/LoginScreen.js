@@ -41,8 +41,8 @@ class LoginScreen extends Component {
             userServices.userService.login(data).then(function (response) {
                 weakSelf.setState({ showIndicator: false })
                 if (response && response.success) {
-                    saveUser(response);
-                    Actions.OTPScreen(data);
+                    saveUser(response.data);
+                    Actions.OTPScreen({userDetails: response.data, mobileNo: data.mobileNo});
                 } else {
                     Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
                 }

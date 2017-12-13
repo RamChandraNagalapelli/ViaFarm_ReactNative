@@ -2,7 +2,6 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableWithoutFeedback, FlatList, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../Actions'
 
 class VFDropDown extends Component {
 
@@ -56,6 +55,7 @@ class VFDropDown extends Component {
 
     render() {
         const { options } = this.props
+
         const { text, defaultText } = this.state
         if (options.length <= 0 && text !== defaultText) {
             this.setState({ text: defaultText })
@@ -105,29 +105,6 @@ const styles = StyleSheet.create({
 
 const screenSize = Dimensions.get("window")
 
-const mapStateToProps = (state, ownProps) => {
-    var options = []
-    switch (ownProps.title) {
-        case 'Country':
-            options = state.countryList;
-            break;
-        case 'State':
-            if (state.selectedCountry) {
-                options = state.stateList.filter((item) => { return item.countryId === state.selectedCountry.id })
-            }
-            break;
-        case 'City':
-            if (state.selectedState) {
-                options = state.cityList.filter((item) => { return item.stateId === state.selectedState.id })
-            }
-            break;
-        default: break;
-    }
 
-    return {
-        // countries: state.countryList,
-        // options: options,
-    }
-}
 
-export default connect(mapStateToProps, actions)(VFDropDown);
+export default VFDropDown;

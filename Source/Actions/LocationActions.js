@@ -1,7 +1,7 @@
-export const setState = (state) => {
+export const setState = (statelist) => {
     return {
         type: 'set_state',
-        payload: state,
+        payload: statelist,
     };
 };
 

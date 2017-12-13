@@ -1,16 +1,16 @@
-export const userService = {
-    login
+export const locationService = {
+    getLocations
 };
 
 
-function login(mobileno) {
+function getLocations() {
 	return new Promise(function(resolve, reject) {
-		return fetch('http://192.168.11.221:3040/mob/user/login', {
-			method: 'POST',
+		return fetch('http://192.168.11.221:3040/mob/get-locations', {
+			method: 'GET',
 			headers: {
 		        'Content-Type': 'application/json',
-		  	},	
-		    body: JSON.stringify(mobileno)
+		  	}	
+		    // body: JSON.stringify(mobileno)
 		}).then(function(response) {
 			var data = response.json();
 			resolve(data);

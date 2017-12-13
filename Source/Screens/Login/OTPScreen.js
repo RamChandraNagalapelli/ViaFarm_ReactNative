@@ -16,7 +16,7 @@ export default class OTPScreen extends Component {
     }
 
     componentWillMount() {
-        const { mobileNo } = this.props
+        const { mobileNo } = this.props;
         this.setState({ mobileNo })
     }
 
@@ -31,7 +31,12 @@ export default class OTPScreen extends Component {
     onSubmitOTP = () => {
         Keyboard.dismiss()
         if (this.isValidData() === true) {
-            Actions.RegistrationScreen({ otp: this.state.otp })
+            if(this.props.userDetails.isNewUser) {
+                // console.log("mobileno in otp", this.state.mobileNo, this.props.mobileNo);
+                Actions.RegistrationScreen({ mobileNo: this.state.mobileNo });    
+            } else {
+                Actions.DashboardScreen({ mobileNo: this.state.mobileNo });    
+            }
         }
     }
 
