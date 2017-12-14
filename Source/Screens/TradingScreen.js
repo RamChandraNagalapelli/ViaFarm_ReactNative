@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
-import { View, Keyboard, ListView, TouchableOpacity, Text, Image } from 'react-native';
+import { View, Keyboard, ListView, TouchableOpacity, Text, Image, Linking, Alert, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { SearchBar } from '../Components'
+import { Actions } from 'react-native-router-flux';
 
 // Row data (hard-coded)
 var rows = [
-    { id: 0, day: '5th Dec, Tuesday ', imageUrl: '', minTemp: 30, maxTemp: 45, description: 'Clouds' },
-    { id: 0, day: '5th Dec, Tuesday ', imageUrl: '', minTemp: 30, maxTemp: 45, description: 'Clouds' },
-    { id: 0, day: '5th Dec, Tuesday ', imageUrl: '', minTemp: 30, maxTemp: 45, description: 'Clouds' },
-    { id: 0, day: '5th Dec, Tuesday ', imageUrl: '', minTemp: 30, maxTemp: 45, description: 'Clouds' },
-    { id: 0, day: '5th Dec, Tuesday ', imageUrl: '', minTemp: 30, maxTemp: 45, description: 'Clouds' },
+    { id: 0, item: 'Rice', quantity: 200, price: 2000, pricePerKg: 10, vendor: 'RamChandra', city: 'Srikhakulam', state: 'Andhra Pradesh', mobileNo: '8332019470' },
+    { id: 1, item: 'Rice', quantity: 200, price: 2000, pricePerKg: 10, vendor: 'RamChandra', city: 'Srikhakulam', state: 'Andhra Pradesh', mobileNo: '8332019470' },
+    { id: 2, item: 'Rice', quantity: 200, price: 2000, pricePerKg: 10, vendor: 'RamChandra', city: 'Srikhakulam', state: 'Andhra Pradesh', mobileNo: '8332019470' },
+    { id: 3, item: 'Rice', quantity: 200, price: 2000, pricePerKg: 10, vendor: 'RamChandra', city: 'Srikhakulam', state: 'Andhra Pradesh', mobileNo: '8332019470' },
+    { id: 4, item: 'Rice', quantity: 200, price: 2000, pricePerKg: 10, vendor: 'RamChandra', city: 'Srikhakulam', state: 'Andhra Pradesh', mobileNo: '8332019470' },
 ]
 const title = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
 const description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
@@ -21,32 +22,53 @@ const ds = new ListView.DataSource({ rowHasChanged })
 class TradingScreen extends Component {
 
     onSearchTextChange = (text) => {
-        console.log('onSearchTextChange', text);
+        this.setState({ searchTerm: text })
     }
 
     onSearchSubmit = () => {
-        console.log('onSearchSubmit');
+        if (this.state.searchTerm) {
+            console.log('Searching For', this.state.searchTerm)
+        }
     }
 
     state = {
         dataSource: ds.cloneWithRows(rows)
     }
 
+    onRowSelect(data) {
+        console.log('make a call', data.mobileNo);
+        Alert.alert(data.mobileNo, 'Make a call to ' + data.vendor, [
+            { text: 'Cancel' },
+            { text: 'Call', onPress: () => Linking.openURL(data.mobileNo) },
+        ])
+    }
+
+    onAddButtonPress() {
+        Actions.AddTradingScreen()
+    }
+
     renderRow = (rowData) => {
         var image = require('../Images/logo.png')
         return (
-            <TouchableOpacity style={styles.row}>
-                <View style={{ flex: 4 }}>
-                    <Text style={styles.date} numberOfLines={2}>{rowData.day}</Text>
-                    <View style={{ flex: 1, flexDirection: 'column' }}>
-                        <View style={{ flex: 1, flexDirection: 'row' }}>
-                            <Text style={{ flex: 1, fontSize: 18, fontWeight: 'bold', color: '#666666' }}>min {rowData.minTemp}°</Text>
-                            <Text style={{ flex: 1, fontSize: 18, fontWeight: 'bold', color: '#666666' }}>max {rowData.maxTemp}°</Text>
-                        </View>
-                        <Text style={styles.description} numberOfLines={1}>{rowData.description}</Text>
+            <TouchableOpacity style={styles.row} onPress={this.onRowSelect.bind(this, rowData)}>
+                <View style={{ flex: 1 }}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#666666', marginRight: 10 }} numberOfLines={1}>{rowData.item}</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#666666', marginRight: 10 }} numberOfLines={1}>({rowData.quantity} kg)</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#666666', marginRight: 10 }} numberOfLines={1}>Price: {rowData.price} Rs</Text>
+                        <Text style={{ flex: 1, fontSize: 17, fontWeight: '500', color: '#888888' }} numberOfLines={1}>({rowData.pricePerKg} Rs/kg)</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#666666', marginRight: 10 }} numberOfLines={1}>Vendor: </Text>
+                        <Text style={{ flex: 1, fontSize: 16, fontWeight: '500', color: '#4488dd' }} numberOfLines={1}>{rowData.vendor}</Text>
+                    </View>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#666666', marginRight: 10 }} numberOfLines={1}>Address: </Text>
+                        <Text style={{ flex: 1, fontSize: 16, fontWeight: '500', color: '#dd55dd' }} numberOfLines={1}>{rowData.city}, {rowData.state}</Text>
                     </View>
                 </View>
-                <Image source={image} style={styles.imageView} resizeMode='contain' />
             </TouchableOpacity>
         )
     }
@@ -65,6 +87,11 @@ class TradingScreen extends Component {
                     dataSource={this.state.dataSource}
                     renderRow={this.renderRow}
                 />
+                <View style={styles.addButton}>
+                    <TouchableWithoutFeedback onPress={this.onAddButtonPress.bind(this)}>
+                        <Image source={require('../Images/plus.png')} resizeMode='contain' style={styles.imageView} />
+                    </TouchableWithoutFeedback>
+                </View>
             </View>
         )
     }
@@ -99,23 +126,14 @@ const styles = {
         padding: 10,
     },
     imageView: {
-        // width: '15%',
-        aspectRatio: 1,
-        margin: 10,
-        flex: 1,
+        height: 40,
+        width: 40,
     },
-    date: {
-        flex: 1,
-        color: '#444444',
-        fontWeight: 'bold',
-        fontSize: 18,
+    addButton: {
+        position: 'absolute',
+        right: 30,
+        bottom: 30,
+        backgroundColor: 'transparent',
     },
-    description: {
-        flex: 1,
-        color: '#888888',
-        fontWeight: '600',
-        fontSize: 25,
-        textAlign: 'left',
-    }
 }
 export default connect(null)(TradingScreen);

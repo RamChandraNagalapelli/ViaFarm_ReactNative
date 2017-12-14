@@ -15,6 +15,7 @@ import OrganicFarmingScreen from '../Screens/OrganicFarmingScreen'
 import WeatherScreen from '../Screens/WeatherScreen';
 import AgricultureDashboardScreen from '../Screens/Agriculture/AgricultureDashboardScreen';
 import TradingScreen from '../Screens/TradingScreen';
+import AddTradingScreen from '../Screens/AddTradingScreen'
 import * as locationServices from '../Services/locationService';
 
 class Screens extends Component {
@@ -69,7 +70,7 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} hideNavBar={true} initial={true}/>
+                    <Scene key="login" component={LoginScreen} hideNavBar={true}/>
                     <Scene key="OTPScreen" component={OTPScreen} title={language ? language.OTP : ''} />
                     <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} />
                     <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} />
@@ -78,6 +79,7 @@ class Screens extends Component {
                     <Scene key="WeatherScreen" component={WeatherScreen} title={language ? language.weather : ''} />
                     <Scene key="AgricultureDashboardScreen" component={AgricultureDashboardScreen} title={language ? language.agriculture : ''} />
                     <Scene key="TradingScreen" component={TradingScreen} title={language ? language.trading : ''} />
+                    <Scene key="AddTradingScreen" component={AddTradingScreen} title={language ? language.add : 'Add'} initial={true} />
                 </Stack>
             </Router>
         )
