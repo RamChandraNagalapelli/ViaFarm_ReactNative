@@ -20,7 +20,7 @@ class DashboardScreen extends Component {
                 Actions.OrganicFarmingScreen();
                 break;
             default:
-                Alert.alert(text, 'Comming Soon!!!!!!!')
+                Actions.TradingScreen();
                 break;
         }
     }
@@ -29,11 +29,11 @@ class DashboardScreen extends Component {
         const { language } = this.props
         return (
             <ScrollView style={styles.mainView} >
-                <DashboardCard text={language.agriculture} tag={0} onPress={this.onSelect} />
-                <DashboardCard text={language.weather} tag={1} onPress={this.onSelect} />
-                <DashboardCard text={language.modernTechnology} tag={2} onPress={this.onSelect} />
-                <DashboardCard text={language.organicFarming} tag={3} onPress={this.onSelect} />
-                <DashboardCard text={language.trading} tag={4} onPress={this.onSelect} />
+                <DashboardCard text={language ? language.agriculture : ''} tag={0} onPress={this.onSelect} />
+                <DashboardCard text={language ? language.weather : ''} tag={1} onPress={this.onSelect} />
+                <DashboardCard text={language ? language.modernTechnology : ''} tag={2} onPress={this.onSelect} />
+                <DashboardCard text={language ? language.organicFarming : ''} tag={3} onPress={this.onSelect} />
+                <DashboardCard text={language ? language.trading : ''} tag={4} onPress={this.onSelect} />
             </ScrollView>
         )
     }
