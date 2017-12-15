@@ -26,25 +26,25 @@ class Screens extends Component {
 
     componentWillMount() {
         console.log(locationServices);
-        if(!this.props.language) {
+        if (!this.props.language) {
             this.props.setLanguage('en');
         }
         this.setLanguage();
-        
+
         const { setCity, setState } = this.props;
         var weakSelf = this;
-        locationServices.locationService.getLocations().then(function(response) {
+        locationServices.locationService.getLocations().then(function (response) {
             console.log("response", response.data);
             weakSelf.setState({ showIndicator: false });
-            if(response && response.success) {
+            if (response && response.success) {
                 setState(response.data.state);
                 setCity(response.data.city);
             } else {
-                console.log("error in navigation manager line no.42", error);    
+                console.log("error in navigation manager line no.42", error);
             }
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log("error in navigation manager line no.45", error);
-            Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
+            Alert.alert(language.alert, language.somethingWentWrong, [{ text: (language ? language.ok : '') }]);
         });
     }
 
@@ -70,7 +70,7 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} hideNavBar={true}/>
+                    <Scene key="login" component={procedureScreen} hideNavBar={true} initial={true} />
                     <Scene key="OTPScreen" component={OTPScreen} title={language ? language.OTP : ''} />
                     <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} />
                     <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} />
