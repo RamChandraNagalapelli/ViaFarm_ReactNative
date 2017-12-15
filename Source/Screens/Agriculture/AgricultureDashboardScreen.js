@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, Alert } from 'react-native';
 import GridView from "react-native-easy-grid-view";
+import { Actions } from 'react-native-router-flux';
 
 
 export default class AgricultureDashboardScreen extends Component {
@@ -28,7 +29,8 @@ export default class AgricultureDashboardScreen extends Component {
 
     _onSelectCell=(data)=> {
         console.log('cellData', data)
-      Alert.alert('Selected Item', data.text)
+        Actions.procedureScreen();
+      //Alert.alert('Selected Item', data.text)
     }
 
     _renderCell(cell) {
