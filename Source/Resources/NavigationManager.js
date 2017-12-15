@@ -79,14 +79,9 @@ class Screens extends Component {
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''} />
                     <Scene key="WeatherScreen" component={WeatherScreen} title={language ? language.weather : ''} />
                     <Scene key="AgricultureDashboardScreen" component={AgricultureDashboardScreen} title={language ? language.agriculture : ''} />
-<<<<<<< HEAD
                     <Scene key="TradingScreen" component={TradingScreen} title={language ? language.trading : ''} />
                     <Scene key="AddTradingScreen" component={AddTradingScreen} title={language ? language.add : 'Add'} />
                     <Scene key="procedureScreen" component={procedureScreen} title={language ? language.add : 'Procedures'} />
-=======
-                    <Scene key="TradingScreen" component={TradingScreen} title={language ? language.trading : ''} initial={true} />
-                    <Scene key="AddTradingScreen" component={AddTradingScreen} title={language ? language.add : 'Add'} />
->>>>>>> c11a8f843435d960c77e0ee44e8e32ae7e0700ae
                 </Stack>
             </Router>
         )
