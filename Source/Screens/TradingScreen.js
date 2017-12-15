@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Keyboard, ListView, TouchableOpacity, Text, Image, Linking, Alert, TouchableWithoutFeedback } from 'react-native';
+import { View, Keyboard, ListView, TouchableOpacity, Text, Image, Alert, TouchableWithoutFeedback } from 'react-native';
 import { connect } from 'react-redux';
 import { SearchBar } from '../Components'
 import { Actions } from 'react-native-router-flux';
+import Communications from 'react-native-communications';
 
 // Row data (hard-coded)
 var rows = [
@@ -39,7 +40,7 @@ class TradingScreen extends Component {
         console.log('make a call', data.mobileNo);
         Alert.alert(data.mobileNo, 'Make a call to ' + data.vendor, [
             { text: 'Cancel' },
-            { text: 'Call', onPress: () => Linking.openURL(data.mobileNo) },
+            { text: 'Call', onPress: () => Communications.phonecall(data.mobileNo, true) },
         ])
     }
 
