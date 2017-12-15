@@ -13,3 +13,4 @@ AppRegistry.registerComponent('ViaFarm', () => App);
 // REACT_REDUX          >>> npm install --save react-redux
 // REACT-LOCALIZATION   >>> npm install --save react-localization
 // REDUX_PERSIST        >>> npm i redux-persist
+// COMMUNICATIONS       >>> npm install react-native-communications --save

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { ScrollView, View, Text, TextInput, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import RegTextField from '../Components/RegTextField'
 import { TextField } from 'react-native-material-textfield';
+import {Actions} from 'react-native-router-flux'
 
 class AddTradingScreen extends Component {
 
@@ -11,9 +12,11 @@ class AddTradingScreen extends Component {
         price: 0,
         description: '',
     }
+
     onSubmitPress = () => {
+        Keyboard.dismiss()
         if (this.isValidData()) {
-            console.log('All the data is Valid');
+            Actions.pop()
         }
     }
 
@@ -55,7 +58,7 @@ class AddTradingScreen extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: 'white', padding: 10 }}>
+            <ScrollView style={{ flex: 1, backgroundColor: 'white', padding: 10 }} onPress={() => Keyboard.dismiss()}>
                 <RegTextField placeholder='Item name' tag={0} onTextChanges={this.onTextChanges} />
                 <View style={{ flexDirection: 'row', alignItems: 'stretch', marginTop: 10 }}>
                     <View style={{ flex: 1 }}>
@@ -75,7 +78,7 @@ class AddTradingScreen extends Component {
                         <Text style={{ alignSelf: 'center', fontSize: 17, fontWeight: '600', color: 'white' }}>Submit</Text>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
