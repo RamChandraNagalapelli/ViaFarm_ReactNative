@@ -10,27 +10,9 @@ import {
 import * as Animatable from 'react-native-animatable';
 import Collapsible from 'react-native-collapsible';
 import Accordion from 'react-native-collapsible/Accordion';
+import * as categoriesServices from '../../Services/agriCategories';
 
 const BACON_IPSUM = 'Bacon ipsum dolor amet chuck turducken landjaeger tongue spare ribs. Picanha beef prosciutto meatball turkey shoulder shank salami cupim doner jowl pork belly cow. Chicken shankle rump swine tail frankfurter meatloaf ground round flank ham hock tongue shank andouille boudin brisket. ';
-
-const CONTENT = [
-  {
-    title: 'Apples',
-    content: BACON_IPSUM,
-  },
-  {
-    title: 'Banana',
-    content: BACON_IPSUM,
-  },
-  {
-    title: 'Guava',
-    content: BACON_IPSUM,
-  },
-  {
-    title: 'Berries',
-    content: BACON_IPSUM,
-  }
-];
 
 
 
@@ -42,8 +24,8 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'left',
+    fontFamily:'Roboto-Regular',
     fontSize: 22,
-    fontWeight: '300',
     marginBottom: 20,
   },
   header: {
@@ -51,16 +33,34 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   headerText: {
+    
+    color:'black',
+    fontFamily:'Roboto-Regular',
+    
     textAlign: 'left',
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 16
   },
   content: {
-    padding: 20,
+    padding: 10,
+    
     backgroundColor: '#fff',
+    
+    
+  },
+  maincontent: {
+    
+    fontFamily:'Roboto-Regular',
+    backgroundColor: '#fff',
+    borderBottomWidth:3,
+    borderLeftWidth:1,
+    borderRightWidth:1,
+    borderColor:'green',
+    justifyContent: 'center'
+    
   },
   active: {
     backgroundColor: 'rgba(255,255,255,1)',
+    
   },
   inactive: {
     backgroundColor: 'rgba(245,252,255,1)',
@@ -79,16 +79,23 @@ const styles = StyleSheet.create({
   },
   selectTitle: {
     fontSize: 14,
-    fontWeight: '500',
+    fontFamily:'Roboto-Regular',
+    
     padding: 10,
   },
 });
 
 export default class ExampleView extends Component {
   state = {
+    apiData:[],
     activeSection: false,
     collapsed: true,
+    
   };
+
+  componentWillMount() {
+    this.getData()
+  }
 
   _toggleExpanded = () => {
     this.setState({ collapsed: !this.state.collapsed });
@@ -99,44 +106,46 @@ export default class ExampleView extends Component {
   }
 
   _renderHeader(section, i, isActive) {
+    console.log(section,"107")
     return (
       <Animatable.View duration={400} style={[styles.header, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
-        <Text style={styles.headerText}>{section.title}</Text>
+        <Text style={styles.headerText}>{section.item}</Text>
       </Animatable.View>
     );
   }
 
   _renderContent(section, i, isActive) {
+    console.log(section,"116")
     return (
-      <Animatable.View duration={400}  style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
-        <Animatable.Text animation={isActive ? 'bounceIn' : undefined}>{section.content}</Animatable.Text>
+      <Animatable.View duration={400} style={[styles.content, isActive ? styles.active : styles.inactive]} transition="backgroundColor">
+        <Animatable.Text animation={isActive ? 'bounceIn' : undefined} style={[styles.maincontent]}>{BACON_IPSUM}</Animatable.Text>
       </Animatable.View>
     );
+  }
+
+  getData = () => {
+    const { data } = this.props
+    var weakSelf = this;
+    categoriesServices.categoriesService.getCategories(data.id, 'en').then(function (response) {
+      console.log("in api", response)
+      if (response.success) {
+        console.log("success")
+        // apiData
+        weakSelf.setState({apiData:response.data})
+      } else {
+        Alert.alert('response', 'response.data[0]')
+        // Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
+      }
+    }).catch(function (error) {
+      Alert.alert('error', 'kdjsfahlkjdshfl')
+      // Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Processes</Text>
-
-        {/* <View style={styles.selectors}>
-          <Text style={styles.selectTitle}>Select:</Text>
-          {SELECTORS.map(selector => (
-            <TouchableHighlight key={selector.title} onPress={this._setSection.bind(this, selector.value)}>
-              <View style={styles.selector}>
-                <Text style={selector.value === this.state.activeSection && styles.activeSelector}>
-                  {selector.title}
-                </Text>
-              </View>
-            </TouchableHighlight>
-          ))}
-        </View> */}
-
-        {/* <TouchableHighlight onPress={this._toggleExpanded}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Single Collapsible</Text>
-          </View>
-        </TouchableHighlight> */}
         <Collapsible collapsed={this.state.collapsed} align="center">
           <View style={styles.content}>
             <Text>Bacon ipsum dolor amet chuck turducken landjaeger tongue spare ribs</Text>
@@ -144,13 +153,12 @@ export default class ExampleView extends Component {
         </Collapsible>
         <Accordion
           activeSection={this.state.activeSection}
-          sections={CONTENT}
+          sections={this.state.apiData}
           renderHeader={this._renderHeader}
           renderContent={this._renderContent}
           duration={400}
           onChange={this._setSection.bind(this)}
         />
-
       </View>
     );
   }

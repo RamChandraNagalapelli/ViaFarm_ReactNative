@@ -59,7 +59,24 @@ export class DashboardCard extends Component {
     }
 
     render() {
-        var image = require('../Images/logo.png')
+        var image = null
+        switch (this.props.tag) {
+            case 0:
+                image = require('../Images/Dashboard/agriculture.png')
+                break;
+            case 1:
+                image = require('../Images/Dashboard/weather.png')
+                break;
+            case 2:
+                image = require('../Images/Dashboard/moderntech.png')
+                break;
+            case 3:
+                image = require('../Images/Dashboard/farming.png')
+                break;
+            case 4:
+                image = require('../Images/Dashboard/trading.png')
+                break;
+        }
         var marginTop = 10
         var marginBottom = 10
         switch (this.state.tag) {
@@ -87,6 +104,7 @@ const styles = StyleSheet.create({
     },
     cardView: {
         borderWidth: 1,
+        backgroundColor: '#f2f2f2',
         borderRadius: 3,
         borderColor: '#88888888',
         flex: 1,
@@ -98,12 +116,15 @@ const styles = StyleSheet.create({
         margin: 30,
         marginRight: 10,
         width: '55%',
+        opacity:0.7,
         fontSize: 20,
-        fontWeight: 'bold',
-        color: '#444444'
+        
+        fontFamily: 'Roboto-Regular',
+        color: '#000'
     },
     imageView: {
         width: '25%',
+        // opacity:0.7,
         aspectRatio: 1,
         margin: 10,
     }
