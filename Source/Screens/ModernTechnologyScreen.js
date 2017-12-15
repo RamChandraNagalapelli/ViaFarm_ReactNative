@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import { View, Text, StyleSheet, ListView, Image, TouchableOpacity } from 'react-native';
+import * as technologyServices from '../Services/modernTechnologyService';
 
 // Row data (hard-coded)
 var rows = [
@@ -20,21 +22,37 @@ const rowHasChanged = (r1, r2) => r1.id !== r2.id
 
 const ds = new ListView.DataSource({ rowHasChanged })
 
-export default class ModernTechnologyScreen extends Component {
+class ModernTechnologyScreen extends Component {
 
     state = {
-        dataSource: ds.cloneWithRows(rows)
+        dataSource: ds.cloneWithRows([])
+    }
+
+    componentWillMount() {
+        const { language } = this.props;
+        const weakSelf = this;
+        technologyServices.modernTechService.getList(language.id).then(function(response) {
+            console.log("response", response);
+            weakSelf.setState({ showIndicator: false })
+            if(response && response.success) {
+                weakSelf.setState({dataSource: ds.cloneWithRows(response.data)}) 
+            } else {
+                Alert.alert('alert', 'doesnt get response');
+            }
+        }).catch(function(error) {
+            console.log("error", error);
+        });
     }
 
     renderRow = (rowData) => {
         var image = require('../Images/logo.png')
         return (
-            <TouchableOpacity style={styles.row} onPress={this.onPress.bind(this, rowData.id)}>
+            <TouchableOpacity style={styles.row} onPress={this.onPress.bind(this, rowData._id)}>
                 <View style={{flex: 3}}>
-                    <Text style={styles.title} numberOfLines = {2}>{title}</Text>
-                    <Text style={styles.description} numberOfLines = {4}>{description}</Text>
+                    <Text style={styles.title} numberOfLines = {2}>{rowData.title}</Text>
+                    <Text style={styles.description} numberOfLines = {4}>{rowData.description}</Text>
                 </View>
-                <Image source={image} style={styles.imageView} resizeMode='contain' />
+                <Image source={{uri: "http://192.168.11.221/demo_app/public/agriculture/"+ rowData.imageName}} style={styles.imageView} resizeMode='contain' />
             </TouchableOpacity>
         )
     }
@@ -87,4 +105,13 @@ const styles = StyleSheet.create({
         color: '#888888',
         textAlign: 'justify'
     }
-})
+});
+
+const mapStateToProps = state => {
+    return {
+        language: state.language,
+        userDetails: state.userDetails
+    }
+}
+
+export default connect(mapStateToProps)(ModernTechnologyScreen)

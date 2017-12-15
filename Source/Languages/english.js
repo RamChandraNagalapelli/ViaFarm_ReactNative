@@ -1,4 +1,5 @@
 export const english = {
+    id: "en",
     /// SCREEN NAMES: -
     OTP: 'OTP',
     registration: 'Registration',

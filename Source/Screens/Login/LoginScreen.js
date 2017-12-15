@@ -25,7 +25,7 @@ class LoginScreen extends Component {
     }
 
     componentWillMount() {
-        console.log('App componentWillMount', userServices);
+        // console.log('App componentWillMount', userServices);
     }
 
     onLogin = () => {
@@ -40,6 +40,7 @@ class LoginScreen extends Component {
             var weakSelf = this
             userServices.userService.login(data).then(function (response) {
                 weakSelf.setState({ showIndicator: false })
+                console.log("response------>", response);
                 if (response && response.success) {
                     saveUser(response.data);
                     Actions.OTPScreen({userDetails: response.data, mobileNo: data.mobileNo});
@@ -54,7 +55,7 @@ class LoginScreen extends Component {
     }
 
     onCompletion = (data) => {
-        console.log('UserDetails from LoginScreen', data)
+        // console.log('UserDetails from LoginScreen', data)
         Actions.OTPScreen({ mobileNo: this.state.mobileNo })
     }
 

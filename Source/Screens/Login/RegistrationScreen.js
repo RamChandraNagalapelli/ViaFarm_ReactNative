@@ -80,7 +80,7 @@ class RegistrationScreen extends Component {
             if (this.state.selectedLanguage) {
                 this.props.setLanguage(this.state.selectedLanguage.id)
             }
-            console.log("mobileNo", this.props.mobileNo);
+            // console.log("mobileNo", this.props.mobileNo);
             const data = {
                 firstName: this.state.name,
                 lastName: this.state.surname,
@@ -90,10 +90,12 @@ class RegistrationScreen extends Component {
                 mobileNo: this.props.mobileNo 
             };
             
-            console.log("data in register", data);
+            // console.log("data in register", data);
             const { saveUser } = this.props;
             registrationServices.registrationService.registration(data).then(function(response) {
                 if(response && response.success) {
+                    const headers = response.headers.entries();
+                    console.log("headers", headers);
                     saveUser(response.data);
                     Actions.DashboardScreen();        
                 } else {

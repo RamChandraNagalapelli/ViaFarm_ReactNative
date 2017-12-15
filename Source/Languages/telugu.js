@@ -1,4 +1,5 @@
 export const telugu = {
+    id: "tl",
     /// SCREEN NAMES: -
     OTP: 'ఓటిపి',
     registration: 'రిజిస్ట్రేషన్',
