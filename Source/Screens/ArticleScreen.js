@@ -51,6 +51,7 @@ const styles = {
         paddingTop: 0,
     },
     link: {
+        flex: 1,
         fontSize: 15,
         color: 'blue',
         padding: 5,
