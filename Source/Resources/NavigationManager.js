@@ -76,7 +76,7 @@ class Screens extends Component {
                     <Scene key="login" component={LoginScreen} hideNavBar={true} initial={true}/>
                     <Scene key="OTPScreen" component={OTPScreen} title={language ? language.OTP : ''} />
                     <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} />
-                    <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} />
+                    <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} initial={true}/>
                     <Scene key="ModernTechnologyScreen" component={ModernTechnologyScreen} title={language ? language.modernTechnology : ''} />
                     <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''}  />
                     <Scene key="WeatherScreen" component={WeatherScreen} title={language ? language.weather : ''} />
