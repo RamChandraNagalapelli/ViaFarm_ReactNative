@@ -18,7 +18,6 @@ import TradingScreen from '../Screens/TradingScreen';
 import AddTradingScreen from '../Screens/AddTradingScreen';
 import procedureScreen from '../Screens/Agriculture/procedureScreen';
 import ArticleScreen from '../Screens/ArticleScreen';
-import VideoScreen from '../Screens/VideoScreen';
 import * as locationServices from '../Services/locationService';
 
 class Screens extends Component {
@@ -85,7 +84,6 @@ class Screens extends Component {
                     <Scene key="AddTradingScreen" component={AddTradingScreen} title={language ? language.add : 'Add'} />
                     <Scene key="procedureScreen" component={procedureScreen} title={language ? language.add : 'Procedures'} />
                     <Scene key="ArticleScreen" component={ArticleScreen} title={language ? language.add : 'Article'}  />
-                    <Scene key="VideoScreen" component={VideoScreen} title={language ? language.add : 'Video'}  />
                 </Stack>
             </Router>
         )
