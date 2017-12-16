@@ -20,7 +20,7 @@ export default class YouTubeView extends React.Component {
         isLooping: true,
         duration: 0,
         currentTime: 0,
-        fullscreen: true,
+        fullscreen: false,
         containerMounted: false,
         containerWidth: null,
     };
@@ -75,44 +75,6 @@ export default class YouTubeView extends React.Component {
                         onChangeFullscreen={e => this.setState({ fullscreen: e.isFullscreen })}
                         onProgress={e => this.setState({ duration: e.duration, currentTime: e.currentTime })}
                     />}
-
-                {/* Reload iFrame for updated props (Only needed for iOS) */}
-                {Platform.OS === 'ios' &&
-                    <View style={styles.buttonGroup}>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={() => this._youTubeRef && this._youTubeRef.reloadIframe()}
-                        >
-                            <Text style={styles.buttonText}>Reload iFrame (iOS)</Text>
-                        </TouchableOpacity>
-                    </View>}
-                <View style={{ flexDirection: 'row' }}>
-                    <Text style={{ flex: 1 }} numberOfLines={2}>{this.props.title}</Text>
-
-                    {/* Fullscreen */}
-                    {!this.state.fullscreen &&
-                        <View>
-                            <TouchableOpacity
-                                style={styles.button}
-                                onPress={() => this.setState({ fullscreen: true })}
-                            >
-                                <Text style={styles.buttonText}>FS</Text>
-                            </TouchableOpacity>
-                        </View>}
-                    {/* Playing / Looping */}
-                    <View>
-                        <TouchableOpacity
-                            style={styles.button}
-                            onPress={this.onPlay}
-                        >
-                            <Text style={styles.buttonText}>
-                                {this.state.status == 'playing' ? '▮▮' : '▶'}
-                            </Text>
-                        </TouchableOpacity>
-
-                    </View>
-                </View>
-
             </View>
         );
     }
@@ -120,7 +82,7 @@ export default class YouTubeView extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: 'black',
     },
     welcome: {
         fontSize: 20,

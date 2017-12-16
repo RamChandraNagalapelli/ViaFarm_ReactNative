@@ -1,90 +1,7 @@
-// import React from 'react';
-// import {
-//   StyleSheet,
-//   View,
-//   Text,
-//   ListView,
-//   TouchableOpacity,
-//   PixelRatio
-// } from 'react-native';
-// import YouTube from 'react-native-youtube';
-// import YouTubeView from '../Components/YouTubeView';
-// // Row data (hard-coded)
-// var rows = [
-//   { id: 'aUWyD47eh7I', title: 'Article ', description: '' },
-// ]
-// const title = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
-// // Row comparison function
-// const rowHasChanged = (r1, r2) => r1.id !== r2.id
-
-// const ds = new ListView.DataSource({ rowHasChanged })
-// export default class OrganicFarmingScreen extends React.Component {
-//   state = {
-//     videoId: 'nill',
-//     dataSource: ds.cloneWithRows(rows)
-//   };
-
-//   renderRow(rowData) {
-//     var image = require('../Images/logo.png')
-//     console.log(rowData, "nhdxfg");
-//     return (
-//       <YouTubeView play={rowData.id === this.state.videoId} title='Organic Farmin Video - 1' videoId={rowData.id} onPlay={this.onPlayPausePress.bind(this)}/>
-//     )
-//   }
-
-//   onPlayPausePress = ({videoId}) => {
-//     console.log('onPlayPausePress', videoId, 'dfdfgdgd-->', this.state.videoId)
-//     this.setState({videoId: videoId})
-//   }
-
-//   render() {
-//     return (
-//       <ListView style={styles.container}
-//         dataSource={this.state.dataSource}
-//         renderRow={this.renderRow.bind(this)}
-//       />
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     backgroundColor: 'white',
-//   },
-//   welcome: {
-//     fontSize: 20,
-//     textAlign: 'center',
-//     margin: 10,
-//   },
-//   buttonGroup: {
-//     flexDirection: 'row',
-//     alignSelf: 'center',
-//   },
-//   button: {
-//     paddingVertical: 4,
-//     paddingHorizontal: 8,
-//     alignSelf: 'center',
-//   },
-//   buttonText: {
-//     fontSize: 18,
-//     color: 'blue',
-//   },
-//   buttonTextSmall: {
-//     fontSize: 15,
-//   },
-//   instructions: {
-//     textAlign: 'center',
-//     color: '#333333',
-//     marginBottom: 5,
-//   },
-//   player: {
-//     alignSelf: 'stretch',
-//     marginVertical: 10,
-//   },
-// });
 import React, { Component } from 'react';
-import { View, StyleSheet, ListView, Text, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ListView, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import YouTubeView from '../Components/YouTubeView';
 
 // Row data (hard-coded)
 var rows = [
@@ -92,8 +9,6 @@ var rows = [
     { id: 'KzQ3j1IEtPg', title: 'How to do Hindi Farming ', description: '' },
     { id: '7kOY9RyFrLo', title: 'How to do Organic Farming ', description: '' },
     { id: '7kOY9RyFrLo', title: 'How to do Organic Farming ', description: '' },
-    
-    
 ]
 const title = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 // Row comparison function
@@ -104,7 +19,8 @@ const ds = new ListView.DataSource({ rowHasChanged })
 export default class OrganicFarmingScreen extends Component {
 
     state = {
-        dataSource: ds.cloneWithRows(rows)
+        dataSource: ds.cloneWithRows(rows),
+        videoId: null,
     }
 
     renderRow(data) {
@@ -112,9 +28,10 @@ export default class OrganicFarmingScreen extends Component {
         return (
             <View style={styles.row} >
                 <Image source={image} style={styles.imageView} resizeMode='contain' />
+                <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, backgroundColor: '#00000022' }} />
+                <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
                 <TouchableOpacity style={styles.transparentButton} onPress={this._onSelectVideo.bind(this, data)}>
-                    <Image source={require('../Images/play-circle.png')} style={styles.playImage} resizeMode='center' />
-                    <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
+                    <Image source={require('../Images/play-circle.png')} style={styles.playImage} resizeMode='contain' />
                 </TouchableOpacity>
             </View>
         )
@@ -122,17 +39,28 @@ export default class OrganicFarmingScreen extends Component {
 
     render() {
         return (
-            <ListView
-                style={styles.container}
-                dataSource={this.state.dataSource}
-                renderRow={this.renderRow.bind(this)}
-            />
+            <View style={{ flex: 1 }}>
+                <ListView
+                    style={styles.container}
+                    dataSource={this.state.dataSource}
+                    renderRow={this.renderRow.bind(this)}
+                />
+                {this.state.videoId && <View style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, backgroundColor: '#00000088', justifyContent: 'center' }}>
+                    <TouchableWithoutFeedback onPress={() => this.setState({ videoId: null })}>
+                        <View style={{ backgroundColor: '#00000000', flex: 1 }} />
+                    </TouchableWithoutFeedback>
+                    <YouTubeView videoId={this.state.videoId} play={true} />
+                    <TouchableWithoutFeedback onPress={() => this.setState({ videoId: null })}>
+                        <View style={{ backgroundColor: '#00000000', flex: 1 }} />
+                    </TouchableWithoutFeedback>
+                </View>}
+            </View>
         )
     }
 
     _onSelectVideo = (data) => {
         console.log("1245", data);
-        Actions.VideoScreen({data: data});
+        this.setState({ videoId: data.id });
     }
 }
 
@@ -159,7 +87,7 @@ const styles = StyleSheet.create({
     },
     title: {
         color: '#000',
-        // fontWeight: '500',
+        fontWeight: '400',
         fontSize: 16,
         fontFamily: 'Roboto-Light',
         padding: 10,
@@ -170,7 +98,7 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     transparentButton: {
-        backgroundColor: '#00000044',
+        backgroundColor: '#00000000',
         position: 'absolute',
         left: 0,
         top: 0,
@@ -178,11 +106,10 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     playImage: {
-        width: 100,
-        justifyContent: 'space-between',
-        height: 100,
-        marginLeft: 120,
-        marginTop:15,
-        marginBottom: 40,
+        flex: 1,
+        width: 75,
+        height: 75,
+        justifyContent: 'space-around',
+        alignSelf: 'center',
     }
 })
