@@ -1,24 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import { Actions } from 'react-native-router-flux'
 import { View, Text, StyleSheet, ListView, Image, TouchableOpacity } from 'react-native';
 import * as technologyServices from '../Services/modernTechnologyService';
 
-// Row data (hard-coded)
-var rows = [
-    { id: 0, title: 'Article ', description: '' },
-    { id: 1, title: 'Article ', description: '' },
-    { id: 2, title: 'Article ', description: '' },
-    { id: 3, title: 'Article ', description: '' },
-    { id: 4, title: 'Article ', description: '' },
-    { id: 5, title: 'Article ', description: '' },
-    { id: 6, title: 'Article ', description: '' },
-    { id: 7, title: 'Article ', description: '' },
-    { id: 8, title: 'Article ', description: '' },
-]
-const title = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
-const description = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.'
 // Row comparison function
-const rowHasChanged = (r1, r2) => r1.id !== r2.id
+const rowHasChanged = (r1, r2) => r1._id !== r2._id
 
 const ds = new ListView.DataSource({ rowHasChanged })
 
@@ -47,12 +34,12 @@ class ModernTechnologyScreen extends Component {
     renderRow = (rowData) => {
         var image = require('../Images/logo.png')
         return (
-            <TouchableOpacity style={styles.row} onPress={this.onPress.bind(this, rowData._id)}>
+            <TouchableOpacity style={styles.row} onPress={this.onPress.bind(this, rowData)}>
                 <View style={{flex: 3}}>
                     <Text style={styles.title} numberOfLines = {2}>{rowData.title}</Text>
                     <Text style={styles.description} numberOfLines = {4}>{rowData.description}</Text>
                 </View>
-                <Image source={{uri: "http://192.168.11.221/demo_app/public/agriculture/"+ rowData.imageName}} style={styles.imageView} resizeMode='contain' />
+                <Image source={{uri: "http://192.168.11.221/demo_app/public/agriculture/"+ rowData.imageName}} style={styles.imageView} resizeMode='cover' />
             </TouchableOpacity>
         )
     }
@@ -67,8 +54,10 @@ class ModernTechnologyScreen extends Component {
         )
     }
 
-    onPress(props) {
-        console.log(props);
+    onPress(rowData) {
+        if(rowData) {
+            Actions.ArticleScreen({data: rowData});
+        }
     }
 }
 

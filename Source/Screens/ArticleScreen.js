@@ -3,18 +3,20 @@ import { View, ScrollView, Image, Text, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 
 const desc = 'This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title ';
-const link = 'https://www.Nrc.com/React_native/ViaFarm'
+const link = 'https:\/\/www.Nrc.com/React_native/ViaFarm';
+
 class ArticleScreen extends Component {
 
     render() {
+        const { data } = this.props;
         return (
             <ScrollView style={{ flex: 1, backgroundColor: 'white' }}>
-                <Image source={require('../Images/logo.png')} style={{ width: screenSize.width, height: screenSize.width * 9 / 16 }} resizeMode='contain' />
-                <Text style={styles.title} numberOfLines={2}>This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title This Is a Title </Text>
-                <Text style={styles.desscription}>{desc}</Text>
+                <Image source={{uri: "http://192.168.11.221/demo_app/public/agriculture/"+ data.imageName}} style={{ width: screenSize.width, height: screenSize.width * 9 / 16 }} resizeMode='cover' />
+                <Text style={styles.title} numberOfLines={2}>{data.title}</Text>
+                <Text style={styles.desscription}>{data.description}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.reference}>Reference: </Text>
-                    <Text style={styles.link}>{link}</Text>
+                    <Text style={styles.link}>{data.link}</Text>
                 </View>
             </ScrollView>
         )
