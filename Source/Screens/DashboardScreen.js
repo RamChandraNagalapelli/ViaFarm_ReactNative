@@ -98,13 +98,13 @@ export class DashboardCard extends Component {
 
 const styles = StyleSheet.create({
     mainView: {
-        backgroundColor: 'white',
-        paddingLeft: 40,
-        paddingRight: 40,
+        backgroundColor: '#f2f2f2',
+        paddingLeft: 30,
+        paddingRight: 30,
     },
     cardView: {
         borderWidth: 1,
-        backgroundColor: '#f2f2f2',
+        backgroundColor: 'white',
         borderRadius: 3,
         borderColor: '#88888888',
         flex: 1,
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         width: '55%',
         opacity:0.7,
         fontSize: 20,
-        
+        fontWeight: '700',
         fontFamily: 'Roboto-Regular',
         color: '#000'
     },

@@ -30,6 +30,7 @@
 		1A1D3C291FE4F2B90087AAC8 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A1D3C211FE4F2580087AAC8 /* Roboto-Light.ttf */; };
 		1A1D3C2A1FE4F2B90087AAC8 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A1D3C231FE4F2580087AAC8 /* Roboto-Medium.ttf */; };
 		1A1D3C2B1FE4F2B90087AAC8 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1A1D3C221FE4F2580087AAC8 /* Roboto-Regular.ttf */; };
+		1AB2B2271FE504D800A53F5E /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 1AB2B2021FE504D800A53F5E /* YTPlayerView-iframe-player.html */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -341,6 +342,7 @@
 		1A1D3C211FE4F2580087AAC8 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		1A1D3C221FE4F2580087AAC8 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		1A1D3C231FE4F2580087AAC8 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		1AB2B2021FE504D800A53F5E /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = "YTPlayerView-iframe-player.html"; path = "../node_modules/react-native-youtube/assets/YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		2522B152327D4092A6498C3D /* libRCTYouTube.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTYouTube.a; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* ViaFarm-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ViaFarm-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* ViaFarm-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ViaFarm-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -597,6 +599,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				1AB2B2021FE504D800A53F5E /* YTPlayerView-iframe-player.html */,
 				13B07FAE1A68108700A75B9A /* ViaFarm */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ViaFarmTests */,
@@ -1079,6 +1082,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				1A1D3C261FE4F2B80087AAC8 /* Roboto-Light.ttf in Resources */,
+				1AB2B2271FE504D800A53F5E /* YTPlayerView-iframe-player.html in Resources */,
 				1A1D3C241FE4F2B00087AAC8 /* Roboto-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
