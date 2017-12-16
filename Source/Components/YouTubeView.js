@@ -20,7 +20,7 @@ export default class YouTubeView extends React.Component {
         isLooping: true,
         duration: 0,
         currentTime: 0,
-        fullscreen: false,
+        fullscreen: true,
         containerMounted: false,
         containerWidth: null,
     };
@@ -55,18 +55,12 @@ export default class YouTubeView extends React.Component {
                         ref={component => {
                             this._youTubeRef = component;
                         }}
-                        // You must have an API Key for the player to load in Android
                         apiKey="AIzaSyC5u3fzijiyqFGyOAGaiZugYsnMhQe5i3o"
-                        // Un-comment one of videoId / videoIds / playlist.
-                        // You can also edit these props while Hot-Loading in development mode to see how
-                        // it affects the loaded native module
                         videoId={this.props.videoId}
-                        // videoIds={['HcXNPI-IPPM', 'XXlZfc1TrD0', 'czcjU1w-c6k', 'uMK0prafzw0']}
-                        // playlistId="PLF797E961509B4EB5"
                         play={play}
                         loop={this.state.isLooping}
                         fullscreen={this.state.fullscreen}
-                        controls={1}
+                        /* controls={2} */
                         style={[
                             { height: PixelRatio.roundToNearestPixel(this.state.containerWidth / (16 / 9)) },
                             styles.player,

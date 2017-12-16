@@ -18,6 +18,7 @@ import TradingScreen from '../Screens/TradingScreen';
 import AddTradingScreen from '../Screens/AddTradingScreen';
 import procedureScreen from '../Screens/Agriculture/procedureScreen';
 import ArticleScreen from '../Screens/ArticleScreen';
+import VideoScreen from '../Screens/VideoScreen';
 import * as locationServices from '../Services/locationService';
 
 class Screens extends Component {
@@ -72,18 +73,19 @@ class Screens extends Component {
         return (
             <Router>
                 <Stack key="root">
-                    <Scene key="login" component={LoginScreen} hideNavBar={true} />
+                    <Scene key="login" component={LoginScreen} hideNavBar={true} initial={true}/>
                     <Scene key="OTPScreen" component={OTPScreen} title={language ? language.OTP : ''} />
                     <Scene key="RegistrationScreen" component={RegistrationScreen} title={language ? language.registration : ''} />
                     <Scene key="DashboardScreen" component={DashboardScreen} title={language ? language.dashboard : ''} />
                     <Scene key="ModernTechnologyScreen" component={ModernTechnologyScreen} title={language ? language.modernTechnology : ''} />
-                    <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''} />
+                    <Scene key="OrganicFarmingScreen" component={OrganicFarmingScreen} title={language ? language.organicFarming : ''}  />
                     <Scene key="WeatherScreen" component={WeatherScreen} title={language ? language.weather : ''} />
                     <Scene key="AgricultureDashboardScreen" component={AgricultureDashboardScreen} title={language ? language.agriculture : ''} />
                     <Scene key="TradingScreen" component={TradingScreen} title={language ? language.trading : ''} />
                     <Scene key="AddTradingScreen" component={AddTradingScreen} title={language ? language.add : 'Add'} />
                     <Scene key="procedureScreen" component={procedureScreen} title={language ? language.add : 'Procedures'} />
-                    <Scene key="ArticleScreen" component={ArticleScreen} title={language ? language.add : 'Article'} initial={true} />
+                    <Scene key="ArticleScreen" component={ArticleScreen} title={language ? language.add : 'Article'}  />
+                    <Scene key="VideoScreen" component={VideoScreen} title={language ? language.add : 'Video'}  />
                 </Stack>
             </Router>
         )

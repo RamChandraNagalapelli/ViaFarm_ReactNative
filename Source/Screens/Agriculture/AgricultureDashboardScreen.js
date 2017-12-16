@@ -75,30 +75,6 @@ export default class AgricultureDashboardScreen extends Component {
 
     _onSelectCell = (data) => {
         Actions.procedureScreen({data: data});
-        // const { language } = this.props
-        //     this.setState({ showIndicator: true })
-            
-        //     console.log('data', data.id);
-        //     var weakSelf = this
-        //     categoriesServices.categoriesService.getCategories(data.id, 'hi').then(function (response) {
-        //         console.log("in api", response)
-        //         // weakSelf.setState({ showIndicator: false })
-        //         if ( response.success) {
-        //             console.log("success")
-        //             // 
-                            
-        //         } else {
-        //             Alert.alert('response', 'response.data[0]')
-        //             // Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
-        //         }
-        //     }).catch(function (error) {
-        //         // weakSelf.setState({ showIndicator: false })
-        //         Alert.alert('error', 'kdjsfahlkjdshfl')
-        //         // Alert.alert(language.alert, language.somethingWentWrong, [{text: (language ? language.ok : '')}]);
-        //     });
-        
-        //Actions.procedureScreen();
-        //Alert.alert('Selected Item', data.text)
     }
 
 
@@ -113,65 +89,7 @@ export default class AgricultureDashboardScreen extends Component {
             </View>
         )
     }
-    // _renderCell(cell) {
-    //     // var image = null
-    //     switch (cell.tag) {
-    //         case 0:
-    //             image = require('../../Images/Agriculture/apple.png')
-    //             break;
-    //         case 1:
-    //             image = require('../../Images/Agriculture/vegetables.png')
-    //             break;
-    //         case 2:
-    //             image = require('../../Images/Agriculture/sack.png')
-    //             break;
-    //         case 3:
-    //             image = require('../../Images/Agriculture/seeds.png')
-    //             break;
-    //         case 4:
-    //             image = require('../../Images/Agriculture/fertilizer.png')
-    //             break;
-    //     }
-    //     return (<View onLayout={event => {
-    //       var width = event.nativeEvent.layout.width;
-    //      if(this.state.cellWidth!=width){
-    //      this.setState({cellWidth:width})
-    //      }
-    //      if(this.state.cellHeight!=width){
-    //      this.setState({cellHeight:width})
-    //      }
-    //     }}>
-    //     <TouchableOpacity onPress={this._onSelectCell.bind(this, cell)}>
-    //         <View style={{width:this.state.cellWidth, height:this.state.cellHeight, justifyContent:'center', backgroundColor:'white', borderRadius: 3, borderWidth: 1, borderColor: '#88888888',}}>
-    //         {<Image source={image} style={styles.imageView} resizeMode='contain' />}
-
-
-    //             <Text style={{backgroundColor:'white',textAlign:'center',color:'black',fontSize:20, paddingTop: 10,fontFamily:'Roboto-Light'}}>{cell.text}</Text>
-    //         </View>
-    //     </TouchableOpacity>
-    //   </View>)
-    // }
-    // constructor(props) {
-    //     super(props);
-    //     var dataArray = ['Fruits', 'Vegetables', 'Pulses', 'Seeds', 'Fertilizers']
-    //     var displayArray = []
-    //     for (var i=0; i<rows.length; i++) {
-    //         displayArray.push({
-    //             tag: i,
-    //             text: dataArray[i],
-    //             backgroundColor: 'black'
-    //         })
-    //     }
-    //     console.log(displayArray,"dd");
-    //     var ds = new GridView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    //     this.state = {
-    //         dataSource: ds.cloneWithCells(
-    //             displayArray
-    //             , 2),
-    //         cellWidth: 0,
-    //         cellHeight: 0
-    //     };
-    // }
+    
 }
 
 
